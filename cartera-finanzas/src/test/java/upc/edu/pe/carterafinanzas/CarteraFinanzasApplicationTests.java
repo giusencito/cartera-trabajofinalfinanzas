@@ -1,10 +1,10 @@
-package upc.edu.pe.cartera;
+package upc.edu.pe.carterafinanzas;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class CarteraApplicationTests {
+class CarteraFinanzasApplicationTests {
 
 	@Test
 	void contextLoads() {

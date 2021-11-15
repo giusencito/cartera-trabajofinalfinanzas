@@ -1,13 +1,13 @@
-package upc.edu.pe.cartera;
+package upc.edu.pe.carterafinanzas;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class CarteraApplication {
+public class CarteraFinanzasApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(CarteraApplication.class, args);
+		SpringApplication.run(CarteraFinanzasApplication.class, args);
 	}
 
 }
