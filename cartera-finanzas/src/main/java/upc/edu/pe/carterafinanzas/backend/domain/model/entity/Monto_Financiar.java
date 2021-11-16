@@ -21,20 +21,20 @@ public class Monto_Financiar {
 
 
     @NotNull
-    private double resultado;
+    private Double resultado;
 
     @NotNull
-    private double tasa;
+    private Double tasa;
 
     @NotNull
-    private double comision;
+    private Double comision;
 
     @NotNull
-    private double monto_desenvolsar;
+    private Double monto_desenvolsar;
 
 
     @NotNull
-    private int tiempo;
+    private Integer tiempo;
 
 
     @ManyToOne(targetEntity = Descuento.class)

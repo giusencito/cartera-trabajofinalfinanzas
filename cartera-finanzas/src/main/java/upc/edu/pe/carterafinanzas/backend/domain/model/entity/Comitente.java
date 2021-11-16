@@ -23,10 +23,10 @@ public class Comitente {
     private Date Fecha;
 
     @NotNull
-    private double cargo;
+    private Double cargo;
 
     @NotNull
-    private double abono;
+    private Double abono;
 
     @ManyToOne(targetEntity = Emisor.class)
     @JoinColumn(name = "emisorid")

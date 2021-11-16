@@ -28,10 +28,10 @@ public class Descuento {
     private Date vencimiento;
 
     @NotNull
-    private double valorMN;
+    private Double valorMN;
 
     @NotNull
-    private double valorME;
+    private Double valorME;
 
 
 

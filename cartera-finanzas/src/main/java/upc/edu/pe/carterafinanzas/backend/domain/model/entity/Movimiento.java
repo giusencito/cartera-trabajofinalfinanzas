@@ -32,12 +32,12 @@ public class Movimiento {
     private String Descripcion;
 
 
-    private double cargo;
+    private Double cargo;
 
 
-    private double abono;
+    private Double abono;
 
-    private double saldo;
+    private Double saldo;
 
     @ManyToOne(targetEntity = TipoMoneda.class)
     @JoinColumn(name = "tipomonedaid")

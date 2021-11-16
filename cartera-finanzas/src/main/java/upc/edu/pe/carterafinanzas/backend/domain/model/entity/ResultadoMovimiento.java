@@ -20,13 +20,13 @@ public class ResultadoMovimiento {
     private Long id;
 
     @NotNull
-    private double totalcargo;
+    private Double totalcargo;
 
 
-    private double totalbono;
+    private Double totalbono;
 
     @NotNull
-    private double totalsaldo;
+    private Double totalsaldo;
 
 
     @OneToMany(targetEntity = Movimiento.class,cascade = CascadeType.ALL)

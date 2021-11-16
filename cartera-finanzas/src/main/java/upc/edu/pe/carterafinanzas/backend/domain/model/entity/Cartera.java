@@ -22,16 +22,16 @@ public class Cartera {
 
 
      @NotNull
-     private double valormntotal;
+     private Double valormntotal;
 
     @NotNull
-    private double valormetotal;
+    private Double valormetotal;
 
 
-    private double valorgarantiatotal;
+    private Double valorgarantiatotal;
 
     @NotNull
-    private double Tipodecambio;
+    private Double Tipodecambio;
 
     @NotNull
     private Date Fecha;

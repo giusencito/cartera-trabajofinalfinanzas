@@ -19,10 +19,10 @@ public class ResultadoComitente {
     private Long id;
 
     @NotNull
-    private double totalabono;
+    private Double totalabono;
 
 
-    private double totalcargos;
+    private Double totalcargos;
 
     @OneToMany(targetEntity = Comitente.class,cascade = CascadeType.ALL)
     @JoinColumn(name = "resultadocomitenteid",referencedColumnName = "id")

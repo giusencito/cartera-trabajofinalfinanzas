@@ -21,14 +21,14 @@ public class Moneda {
 
 
     @NotNull
-    private double valorMN;
+    private Double valorMN;
 
     @NotNull
-    private double valorME;
+    private Double valorME;
 
 
 
-    private double garantia;
+    private Double garantia;
 
     @ManyToOne(targetEntity = Valor.class)
     @JoinColumn(name = "valorid")
