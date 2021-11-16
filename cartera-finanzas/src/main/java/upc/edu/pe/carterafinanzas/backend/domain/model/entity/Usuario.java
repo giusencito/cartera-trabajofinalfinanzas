@@ -54,4 +54,9 @@ public class Usuario {
     private String Password;
 
 
+    @OneToMany(targetEntity = Cartera.class,cascade = CascadeType.ALL)
+    @JoinColumn(name = "usuarioid",referencedColumnName = "id")
+    private List<Cartera> carteras;
+
+
 }
