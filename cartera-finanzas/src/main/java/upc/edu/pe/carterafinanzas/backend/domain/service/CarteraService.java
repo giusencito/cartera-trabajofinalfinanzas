@@ -12,7 +12,7 @@ public interface CarteraService {
     List<Cartera> getAll();
     Page<Cartera> getAll(Pageable pageable);
     Cartera getById(Long CarteraId);
-    Cartera create(Cartera cartera);
+    Cartera create(Long usuarioId,Cartera cartera);
     Cartera update(Long CarteraId,Cartera request);
     ResponseEntity<?> delete(Long CarteraId);
     List<Cartera> findByUsuarioId(Long usuarioId);

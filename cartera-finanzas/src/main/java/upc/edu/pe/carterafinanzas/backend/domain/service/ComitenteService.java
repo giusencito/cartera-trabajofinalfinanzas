@@ -15,7 +15,7 @@ public interface ComitenteService {
     List<Comitente> getAll();
     Page<Comitente> getAll(Pageable pageable);
     Comitente getById(Long ComitenteId);
-    Comitente create(Comitente comitente);
+    Comitente create(Long emisorId, Long valorId,Long resultadocomitenteId,Comitente comitente);
     Comitente update(Long ComitenteId,Comitente request);
     ResponseEntity<?> delete(Long ComitenteId);
     List<Comitente> findByemisorId(Long emisorId);
