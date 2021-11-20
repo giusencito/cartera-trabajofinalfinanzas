@@ -19,7 +19,6 @@ public class Monto_Financiar {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-
     @NotNull
     private Double resultado;
 

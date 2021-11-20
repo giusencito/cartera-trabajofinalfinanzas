@@ -2,6 +2,7 @@ package upc.edu.pe.carterafinanzas.backend.domain.service;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
 import upc.edu.pe.carterafinanzas.backend.domain.model.entity.ResultadoMovimiento;
 
 import java.util.List;
@@ -12,4 +13,5 @@ public interface ResultadoMovimientoService {
     ResultadoMovimiento getById(Long ResultadoMovimientoId);
     ResultadoMovimiento create(ResultadoMovimiento resultadoMovimiento);
     ResultadoMovimiento update(Long ResultadoMovimientoId,ResultadoMovimiento request);
+    ResponseEntity<?> delete(Long ResultadoMovimientoId);
 }
