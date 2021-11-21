@@ -6,85 +6,131 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 
-
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import upc.edu.pe.carterafinanzas.backend.Resource.Moneda.CreateMonedaResource;
 import upc.edu.pe.carterafinanzas.backend.Resource.Moneda.MonedaResource;
 import upc.edu.pe.carterafinanzas.backend.Resource.Moneda.UpdateMonedaResource;
 
-import upc.edu.pe.carterafinanzas.backend.domain.model.entity.Moneda;
-import upc.edu.pe.carterafinanzas.backend.domain.service.MonedaService;
+import upc.edu.pe.carterafinanzas.backend.domain.model.entity.*;
+import upc.edu.pe.carterafinanzas.backend.domain.service.*;
 import upc.edu.pe.carterafinanzas.backend.mapping.MonedaMapper;
+
+import java.text.ParseException;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
 
 @RestController
-@RequestMapping("/api/v1")
+@RequestMapping("/moneda")
 public class MonedaController {
 
 
     @Autowired
-    private MonedaService monedaService;
+    private MonedaService mService;
 
     @Autowired
-    private MonedaMapper mapper;
+    private CarteraService cService;
 
     @Autowired
-    private ModelMapper mapping;
+    private EmisorService eService;
 
+    @Autowired
+    private ValorService vService;
 
+    @Autowired
+    private TipoMonedaService tmService;
 
-
-    @GetMapping("/monedas")
-    public Page<MonedaResource> getAllForumComments(Pageable pageable) {
-        return mapper.modelListToPage(monedaService.getAll(), pageable);
+    @RequestMapping("/")
+    public String irPaginaListadoMonedas(Map<String, Object> model) {
+        model.put("listaMonedas", mService.listar());
+        return "listMonedas"; //"listMes" es una pagina del frontend
     }
 
-    @GetMapping("/monedas/{monedaId}")
-    public MonedaResource getForumCommentById(@PathVariable("monedaId") Long monedaId) {
-        return mapper.toResource(monedaService.getById(monedaId));
-    }
-    @PutMapping("/monedas/{monedaId}")
-    public MonedaResource updateForumComment(@PathVariable Long monedaId, @RequestBody UpdateMonedaResource request) {
-        return mapper.toResource(monedaService.update(monedaId, mapper.toModel(request)));
-    }
+    @RequestMapping("/irRegistrar")
+    public String irPaginaRegistrar(Model model) {
+        model.addAttribute("listaEmisores", eService.listar());
+        model.addAttribute("listaCarteras", cService.listar());
+        model.addAttribute("listaValores", vService.listar());
+        model.addAttribute("listaTipoMoneda", tmService.listar());
 
-    @DeleteMapping("/monedas/{monedaId}")
-    public ResponseEntity<?> deleteForumComment(@PathVariable Long monedaId) {
-        return monedaService.delete(monedaId);
-    }
-    @PostMapping("/emisores/{emisorId}/valores/{valorId}/tipodemonedas/{tipodemonedaId}/carteras/{carteraId}/monedas")
-    public MonedaResource createForumComment(@PathVariable Long emisorId, @PathVariable Long valorId, @PathVariable Long tipodemonedaId, @PathVariable Long carteraId,@RequestBody CreateMonedaResource request) {
-        Moneda forumcomment = mapping.map(request, Moneda.class);
-        return mapping.map(monedaService.create(emisorId, valorId, tipodemonedaId,carteraId,forumcomment), MonedaResource.class);
-    }
-    @GetMapping("/emisores/{emisorId}/monedas")
-    public Page<MonedaResource> getAllForumCommentsByemisorId(@PathVariable Long emisorId, Pageable pageable) {
-        return mapper.modelListToPage(monedaService.findByemisorId(emisorId), pageable);
+
+        model.addAttribute("emisor", new Emisor());
+        model.addAttribute("cartera", new Cartera());
+        model.addAttribute("tipomoneda", new TipoMoneda());
+        model.addAttribute("valor", new Valor());
+        model.addAttribute("moneda", new Moneda());
+        return "carteras"; //"mes" es una pagina del frontend para insertar y/o modificar
     }
 
-    @GetMapping("/valores/{valorId}/monedas")
-    public Page<MonedaResource> getAllForumCommentsByvalorId(@PathVariable Long valorId,Pageable pageable) {
-        return mapper.modelListToPage(monedaService.findByvalorId(valorId), pageable);
+    @RequestMapping("/registrar")
+    public String registrar(@ModelAttribute Moneda objMoneda, BindingResult binRes, Model model) throws ParseException {
+        if(binRes.hasErrors())
+        {
+            model.addAttribute("listaEmisores", eService.listar());
+            model.addAttribute("listaCarteras", cService.listar());
+            model.addAttribute("listaValores", vService.listar());
+            model.addAttribute("listaTipoMoneda", tmService.listar());
+            return "carteras";
+        }
+        else {
+            boolean flag = mService.grabar(objMoneda);
+            if(flag)
+                return "redirect:/moneda/listar";
+            else {
+                model.addAttribute("mensaje", "Ocurrio un accidente, LUZ ROJA");
+                return "redirect:/moneda/irRegistrar";
+            }
+        }
     }
 
-    @GetMapping("/tipodemonedas/{tipodemonedaId}/monedas")
-    public Page<MonedaResource> getAllForumCommentsBytipomonedaId(@PathVariable Long tipodemonedaId,Pageable pageable) {
-        return mapper.modelListToPage(monedaService.findBytipodemonedaId(tipodemonedaId), pageable);
+    @RequestMapping("/modificar/{id}")
+    public String modificar(@PathVariable Long id, Model model, RedirectAttributes objRedir) throws ParseException{
+        Optional<Moneda> objMoneda = mService.listarId(id);
+        if(objMoneda == null) {
+            objRedir.addFlashAttribute("mensaje","Ocurrio un roche, LUZ ROJA");
+            return "redirect:/moneda/listar";
+        }
+        else {
+            if(objMoneda.isPresent())
+                objMoneda.ifPresent(o -> model.addAttribute("moneda",o));
+
+            return "moneda";
+        }
     }
 
-    @GetMapping("/carteras/{carteraId}/monedas")
-    public Page<MonedaResource> getAllForumCommentsBycarteraId(@PathVariable Long carteraId,Pageable pageable) {
-        return mapper.modelListToPage(monedaService.findByCarteraId(carteraId), pageable);
+    @RequestMapping("/eliminar")
+    public String eliminar(Map<String, Object> model, @RequestParam(value="id") Long id) {
+        try {
+            if(id!=null && id>0) {
+                mService.eliminar(id);
+                model.put("listaMonedas", mService.listar());
+            }
+        }
+        catch(Exception ex){
+            System.out.println(ex.getMessage());
+            model.put("mensaje","Ocurrio un error");
+            model.put("listaMonedas", mService.listar());
+        }
+        return "listMonedas";
     }
 
+    @RequestMapping("/listar")
+    public String listar(Map<String, Object> model) {
+        model.put("listaMonedas", mService.listar());
+        return "listMonedas";
+    }
 
-
-
-
-
-
-
+    @RequestMapping("/listarId")
+    public String listarId(Map<String, Object> model, @ModelAttribute Moneda moneda) throws ParseException
+    {
+        mService.listarId(moneda.getId());
+        return "listMoneda";
+    }
 
 }

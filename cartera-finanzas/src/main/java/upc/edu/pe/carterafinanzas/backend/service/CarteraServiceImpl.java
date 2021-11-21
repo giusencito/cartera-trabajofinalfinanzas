@@ -4,6 +4,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import upc.edu.pe.carterafinanzas.backend.domain.model.entity.Cartera;
 import upc.edu.pe.carterafinanzas.backend.domain.repository.CarteraRepository;
 import upc.edu.pe.carterafinanzas.backend.domain.repository.UsuarioRepository;
@@ -14,107 +19,48 @@ import upc.edu.pe.carterafinanzas.shared.exception.ResourceValidationException;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 @Service
 public class CarteraServiceImpl implements CarteraService {
 
 
-    private static final String ENTITY = "Cartera";
+    @Autowired
+    private CarteraRepository dCartera;
 
-    private final CarteraRepository carteraRepository;
-    private final UsuarioRepository usuarioRepository;
-
-
-    private final Validator validator;
-
-    public CarteraServiceImpl(CarteraRepository carteraRepository, UsuarioRepository usuarioRepository,  Validator validator){
-
-        this.carteraRepository=carteraRepository;
-        this.usuarioRepository = usuarioRepository;
-
-        this.validator=validator;
+    @Override
+    @Transactional
+    public boolean grabar(Cartera cartera) {
+        Cartera objCartera = dCartera.save(cartera);
+        if (objCartera == null)
+            return false;
+        else
+            return true;
     }
 
-    public List<Cartera> getAll() {
-        return carteraRepository.findAll();
+
+    @Override
+    @Transactional
+    public void eliminar(Long idCartera) {
+        dCartera.deleteById(idCartera);
     }
 
     @Override
-    public Page<Cartera> getAll(Pageable pageable) {
-        return carteraRepository.findAll(pageable);
+    @Transactional(readOnly = true)
+    public Optional<Cartera> listarId(Long idCartera) {
+        return dCartera.findById(idCartera);
     }
 
     @Override
-    public Cartera getById(Long CarteraId) {
-        return carteraRepository.findById(CarteraId)
-                .orElseThrow(() -> new ResourceNotFoundException(ENTITY, CarteraId));
+    @Transactional(readOnly = true)
+    public List<Cartera> listar() {
+        return dCartera.findAll();
     }
 
-    @Override
-    public Cartera create(Long userId, Cartera request) {
+    public List<Cartera> findByUsuarioId(Long usuarioId){
+        return dCartera.findByUsuarioId(usuarioId);
 
-        return usuarioRepository.findById(userId)
-                .map(publications -> {
-                    request.setUsuario(publications);
-
-                    return carteraRepository.save(request);
-                })
-                .orElseThrow(() -> new ResourceNotFoundException("Usuario", userId));
     }
-
-    @Override
-    public Cartera update(Long CarteraId, Cartera request) {
-        Set<ConstraintViolation<Cartera>> violations = validator.validate(request);
-        if (!violations.isEmpty())
-            throw new ResourceValidationException(ENTITY, violations);
-
-        return carteraRepository.findById(CarteraId).map(event ->
-                carteraRepository.save(
-                        event
-                                .withFecha(request.getFecha())
-                                .withTipodecambio(request.getTipodecambio())
-                                .withValormetotal(request.getValormetotal())
-                                .withValormntotal(request.getValormntotal())
-                                .withValorgarantiatotal(request.getValorgarantiatotal())
-                )
-
-        ).orElseThrow(() -> new ResourceNotFoundException(ENTITY, CarteraId));
-    }
-
-    @Override
-    public List<Cartera> findByUsuarioId(Long usuarioId) {
-        return carteraRepository.findByUsuarioId(usuarioId);
-    }
-
-    @Override
-    public ResponseEntity<?> delete(Long usuarioId) {
-        return carteraRepository.findById(usuarioId).map(post -> {
-            carteraRepository.delete(post);
-            return ResponseEntity.ok().build();
-        }).orElseThrow(() -> new ResourceNotFoundException(ENTITY, usuarioId));
-    }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 }

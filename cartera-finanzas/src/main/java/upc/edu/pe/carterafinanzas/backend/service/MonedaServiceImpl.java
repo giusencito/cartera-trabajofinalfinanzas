@@ -1,11 +1,13 @@
 package upc.edu.pe.carterafinanzas.backend.service;
 
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import upc.edu.pe.carterafinanzas.backend.domain.model.entity.*;
 import upc.edu.pe.carterafinanzas.backend.domain.repository.*;
@@ -16,134 +18,68 @@ import upc.edu.pe.carterafinanzas.shared.exception.ResourceValidationException;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 @Service
 public class MonedaServiceImpl implements MonedaService {
 
 
-    private static final String ENTITY = "Moneda";
-    private final MonedaRepository monedaRepository;
-    private final EmisorRepository emisorRepository;
-    private final ValorRepository valorRepository;
-    private final TipoMonedaRepository tipoMonedaRepository;
-    private final CarteraRepository carteraRepository;
-    private final Validator validator;
-    public MonedaServiceImpl(MonedaRepository monedaRepository,EmisorRepository emisorRepository,ValorRepository valorRepository,TipoMonedaRepository tipoMonedaRepository,CarteraRepository carteraRepository
-    ,Validator validator
-    ){
-        this.monedaRepository=monedaRepository;
-        this.emisorRepository=emisorRepository;
-        this.valorRepository=valorRepository;
-        this.tipoMonedaRepository=tipoMonedaRepository;
-        this.carteraRepository=carteraRepository;
-        this.validator=validator;
-    }
-    public List<Moneda> getAll() {
-        return monedaRepository.findAll();
-    }
+    @Autowired
+    private MonedaRepository dMoneda;
 
     @Override
-    public Page<Moneda> getAll(Pageable pageable) {
-        return monedaRepository.findAll(pageable);
-    }
-
-    @Override
-    public Moneda getById(Long MonedaId) {
-        return monedaRepository.findById(MonedaId)
-                .orElseThrow(() -> new ResourceNotFoundException(ENTITY, MonedaId));
-    }
-
-    @Override
-    public Moneda create(Long emisorId, Long valorId,Long tipodemonedaId,Long carteraId, Moneda request) {
-        Emisor user = emisorRepository.findById(emisorId)
-                .orElseThrow(() -> new ResourceNotFoundException("Emisor", emisorId));
-        TipoMoneda g=tipoMonedaRepository.findById(tipodemonedaId)
-                .orElseThrow(()-> new ResourceNotFoundException("TipoMoneda", tipodemonedaId));
-        Cartera c=carteraRepository.findById(carteraId)
-                .orElseThrow(()-> new ResourceNotFoundException("Cartera", carteraId));
-        return valorRepository.findById(valorId)
-                .map(publications -> {
-                    request.setValor(publications);
-                    request.setEmisor(user);
-                    request.setTipoMoneda(g);
-                    request.setCartera(c);
-                    return monedaRepository.save(request);
-                })
-                .orElseThrow(() -> new ResourceNotFoundException("Valor", valorId));
-    }
-    @Override
-    public Moneda update(Long MonedaId, Moneda request) {
-        Set<ConstraintViolation<Moneda>> violations = validator.validate(request);
-        if (!violations.isEmpty())
-            throw new ResourceValidationException(ENTITY, violations);
-
-        return monedaRepository.findById(MonedaId).map(event ->
-                monedaRepository.save(
-                        event
-                                .withValorMN(request.getValorMN())
-                                .withValorME(request.getValorME())
-                                .withGarantia(request.getGarantia())
-                )
-
-        ).orElseThrow(() -> new ResourceNotFoundException(ENTITY, MonedaId));
+    @Transactional
+    public boolean grabar(Moneda moneda) {
+        Moneda objMoneda = dMoneda.save(moneda);
+        if (objMoneda == null)
+            return false;
+        else
+            return true;
     }
 
 
     @Override
-    public ResponseEntity<?> delete(Long MonedaId) {
-        return monedaRepository.findById(MonedaId).map(post -> {
-            monedaRepository.delete(post);
-            return ResponseEntity.ok().build();
-        }).orElseThrow(() -> new ResourceNotFoundException(ENTITY, MonedaId));
+    @Transactional
+    public void eliminar(Long idMoneda) {
+        dMoneda.deleteById(idMoneda);
     }
 
     @Override
-    public List<Moneda> findByemisorId(Long publicationId) {
-        return monedaRepository.findByemisorId(publicationId);
-    }
-    @Override
-    public List<Moneda> findByvalorId(Long publicationId) {
-        return monedaRepository.findByvalorId(publicationId);
-    }
-    @Override
-    public List<Moneda> findBytipodemonedaId(Long publicationId) {
-        return monedaRepository.findBytipodemonedaId(publicationId);
+    @Transactional(readOnly = true)
+    public Optional<Moneda> listarId(Long idMoneda) {
+        return dMoneda.findById(idMoneda);
     }
 
     @Override
-    public List<Moneda> findByCarteraId(Long publicationId) {
-        return monedaRepository.findByCarteraId(publicationId);
+    @Transactional(readOnly = true)
+    public List<Moneda> listar() {
+        return dMoneda.findAll();
     }
 
+    @Override
+    @Transactional(readOnly = true)
+    public List<Moneda> findByemisorId(Long emisorId){
+        return dMoneda.findByemisorId(emisorId);
 
+    }
 
+    @Override
+    @Transactional(readOnly = true)
+    public List<Moneda> findByvalorId(Long valorId){
+        return dMoneda.findByvalorId(valorId);
 
+    }
 
+    @Override
+    @Transactional(readOnly = true)
+    public List<Moneda> findBytipodemonedaId(Long tipodemonedaId){
+        return dMoneda.findBytipodemonedaId(tipodemonedaId);
+    }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    @Override
+    @Transactional(readOnly = true)
+    public List<Moneda>findByCarteraId(Long carteraId){
+        return dMoneda.findByCarteraId(carteraId);
+    }
 }
