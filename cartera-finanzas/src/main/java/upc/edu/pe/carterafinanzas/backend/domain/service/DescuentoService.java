@@ -4,20 +4,17 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import upc.edu.pe.carterafinanzas.backend.domain.model.entity.Descuento;
+import upc.edu.pe.carterafinanzas.backend.domain.model.entity.Monto_Financiar;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface DescuentoService {
 
-    List<Descuento> getAll();
-    Page<Descuento> getAll(Pageable pageable);
-    Descuento getById(Long DescuentoId);
-    Descuento create(Long emisorId, Long valorId,Long tipodemonedaId,Descuento descuento);
-    Descuento update(Long DescuentoId,Descuento request);
-    ResponseEntity<?> delete(Long DescuentoId);
-    List<Descuento> findByemisorId(Long emisorId);
-    List<Descuento> findByValorId(Long valorId);
-    List<Descuento> findBytipodemonedaId(Long tipodemonedaId);
-
-
+    public boolean grabar(Descuento descuento);
+    public void eliminar(int idDescuento);
+    public Optional<Descuento> listarId(int idDescuento);
+    public List<Descuento> listar();
+    public List<Descuento> buscarDescuentoMN(Double valorMN);
+    public List<Descuento> buscarDescuentoME(Double valorME);
 }
