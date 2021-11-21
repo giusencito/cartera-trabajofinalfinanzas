@@ -6,7 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import upc.edu.pe.carterafinanzas.backend.Resource.Cartera.CarteraResource;
 import upc.edu.pe.carterafinanzas.backend.Resource.Cartera.CreateCarteraResource;
 import upc.edu.pe.carterafinanzas.backend.Resource.Moneda.MonedaResource;
@@ -15,82 +18,106 @@ import upc.edu.pe.carterafinanzas.backend.Resource.Movimiento.MovimientoResource
 import upc.edu.pe.carterafinanzas.backend.Resource.Movimiento.UpdateMovimientoResource;
 import upc.edu.pe.carterafinanzas.backend.domain.model.entity.Cartera;
 import upc.edu.pe.carterafinanzas.backend.domain.model.entity.Movimiento;
+import upc.edu.pe.carterafinanzas.backend.domain.model.entity.ResultadoMovimiento;
+import upc.edu.pe.carterafinanzas.backend.domain.model.entity.Usuario;
 import upc.edu.pe.carterafinanzas.backend.domain.repository.MovimientoRepository;
+import upc.edu.pe.carterafinanzas.backend.domain.service.CarteraService;
 import upc.edu.pe.carterafinanzas.backend.domain.service.MovimientoService;
+import upc.edu.pe.carterafinanzas.backend.domain.service.ResultadoMovimientoService;
+import upc.edu.pe.carterafinanzas.backend.domain.service.UsuarioService;
 import upc.edu.pe.carterafinanzas.backend.mapping.MovimientoMapper;
+
+import java.text.ParseException;
+import java.util.Map;
+import java.util.Optional;
 
 
 @RestController
-@RequestMapping("/api/v1")
+@RequestMapping("/movimiento")
 public class MovimientoController {
 
 
     @Autowired
-    private MovimientoService movimientoService;
+    private ResultadoMovimientoService rmService;
 
     @Autowired
-    private MovimientoMapper mapper;
+    private MovimientoService mService;
 
-    @Autowired
-    private ModelMapper mapping;
-
-
-
-    @GetMapping("/movimientos")
-    public Page<MovimientoResource> getAllForumComments(Pageable pageable) {
-        return mapper.modelListToPage(movimientoService.getAll(), pageable);
+    @RequestMapping("/")
+    public String irPaginaListadoCarteras(Map<String, Object> model) {
+        model.put("listaMovimiento", mService.listar());
+        return "listMovimiento"; //"listMes" es una pagina del frontend
     }
 
-    @GetMapping("/movimientos/{movmientoId}")
-    public MovimientoResource getForumCommentById(@PathVariable("movmientoId") Long movmientoId) {
-        return mapper.toResource(movimientoService.getById(movmientoId));
-    }
-    @PutMapping("/movimientos/{movmientoId}")
-    public MovimientoResource updateForumComment(@PathVariable Long movmientoId, @RequestBody UpdateMovimientoResource request) {
-        return mapper.toResource(movimientoService.update(movmientoId, mapper.toModel(request)));
-    }
+    @RequestMapping("/irRegistrar")
+    public String irPaginaRegistrar(Model model) {
+        model.addAttribute("listaResultadoMovimiento", rmService.listar());
 
-    @DeleteMapping("/movimientos/{movmientoId}")
-    public ResponseEntity<?> deleteForumComment(@PathVariable Long movmientoId) {
-        return movimientoService.delete(movmientoId);
+        model.addAttribute("resultadomovimiento", new ResultadoMovimiento());
+        model.addAttribute("movimiento", new Movimiento());
+        return "movimientos"; //"mes" es una pagina del frontend para insertar y/o modificar
     }
 
-    @PostMapping("/tiposdemonedas/{tipodemonedaId}/resultadoMovimientos/{ResultadoMovimientoId}/movimientos")
-    public MovimientoResource createCartera(@PathVariable Long tipodemonedaId,@PathVariable Long ResultadoMovimientoId ,@RequestBody CreateMovimientoResource request) {
-        Movimiento forumcomment = mapping.map(request, Movimiento.class);
-        return mapping.map(movimientoService.create(tipodemonedaId,ResultadoMovimientoId ,forumcomment), MovimientoResource.class);
+    @RequestMapping("/registrar")
+    public String registrar(@ModelAttribute Movimiento objMovimiento, BindingResult binRes, Model model) throws ParseException {
+        if(binRes.hasErrors())
+        {
+            model.addAttribute("listaResultadoMovimiento", rmService.listar());
+            return "movimientos";
+        }
+        else {
+            boolean flag = mService.grabar(objMovimiento);
+            if(flag)
+                return "redirect:/movimiento/listar";
+            else {
+                model.addAttribute("mensaje", "Ocurrio un accidente, LUZ ROJA");
+                return "redirect:/movimiento/irRegistrar";
+            }
+        }
     }
 
-    @GetMapping("/tipodemonedas/{tipodemonedaId}/movimientos")
-    public Page<MovimientoResource> getAllForumCommentsBytipomonedaId(@PathVariable Long tipodemonedaId, Pageable pageable) {
-        return mapper.modelListToPage(movimientoService.findBytipodemonedaId(tipodemonedaId), pageable);
+    @RequestMapping("/modificar/{id}")
+    public String modificar(@PathVariable Long id, Model model, RedirectAttributes objRedir) throws ParseException{
+        Optional<Movimiento> objMes = mService.listarId(id);
+        if(objMes == null) {
+            objRedir.addFlashAttribute("mensaje","Ocurrio un roche, LUZ ROJA");
+            return "redirect:/movimiento/listar";
+        }
+        else {
+            if(objMes.isPresent())
+                objMes.ifPresent(o -> model.addAttribute("movimientos",o));
+
+            return "movimientos";
+        }
     }
 
-    @GetMapping("/resultadoMovimientos/{ResultadoMovimientoId}/movimientos")
-    public Page<MovimientoResource> getAllForumCommentsBycarteraId(@PathVariable Long ResultadoMovimientoId,Pageable pageable) {
-        return mapper.modelListToPage(movimientoService.findByResultadoMovimientoId(ResultadoMovimientoId), pageable);
+    @RequestMapping("/eliminar")
+    public String eliminar(Map<String, Object> model, @RequestParam(value="id") Long id) {
+        try {
+            if(id!=null && id>0) {
+                mService.eliminar(id);
+                model.put("listaMovimientos", mService.listar());
+            }
+        }
+        catch(Exception ex){
+            System.out.println(ex.getMessage());
+            model.put("mensaje","Ocurrio un error");
+            model.put("listaMovimientos", mService.listar());
+        }
+        return "listMovimientos";
     }
 
+    @RequestMapping("/listar")
+    public String listar(Map<String, Object> model) {
+        model.put("listaMovimientos", mService.listar());
+        return "listMovimientos";
+    }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    @RequestMapping("/listarId")
+    public String listarId(Map<String, Object> model, @ModelAttribute Movimiento movimiento) throws ParseException
+    {
+        mService.listarId(movimiento.getId());
+        return "listMovimientos";
+    }
 }
 
