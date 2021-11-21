@@ -11,123 +11,51 @@ import upc.edu.pe.carterafinanzas.backend.domain.service.ValorService;
 import upc.edu.pe.carterafinanzas.shared.exception.ResourceNotFoundException;
 import upc.edu.pe.carterafinanzas.shared.exception.ResourceValidationException;
 
+import org.springframework.transaction.annotation.Transactional;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
 import java.util.List;
 import java.util.Set;
+import java.util.Optional;
 
 
 @Service
 public class ValorServiceImpl implements ValorService {
 
+    private ValorRepository valorRepository;
 
-
-    private static final String ENTITY = "Valor";
-
-    private final ValorRepository valorRepository;
-
-    private final Validator validator;
-
-    public ValorServiceImpl(ValorRepository valorRepository,Validator validator){
-
-        this.valorRepository=valorRepository;
-        this.validator=validator;
-
-
+    @Override
+    @Transactional
+    public boolean grabar(Valor valor) {
+        Valor objValor = valorRepository.save(valor);
+        if(objValor == null)
+            return false;
+        else
+            return true;
     }
 
-    public List<Valor> getAll() {
+    @Override
+    @Transactional
+    public void eliminar(int idValor) {
+        valorRepository.deleteById(idValor);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Optional<Valor> listarId(int idValor) {
+        return valorRepository.findById(idValor);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<Valor> listar() {
         return valorRepository.findAll();
     }
-    @Override
-    public Page<Valor> getAll(Pageable pageable) {
-        return valorRepository.findAll(pageable);
-    }
-    @Override
-    public Valor getById(Long userid) {
-        return valorRepository.findById(userid)
-                .orElseThrow(() -> new ResourceNotFoundException(ENTITY, userid));
-    }
 
     @Override
-    public Valor create(Valor request) {
-        Set<ConstraintViolation<Valor>> violations = validator.validate(request);
-        if (!violations.isEmpty())
-            throw new ResourceValidationException(ENTITY, violations);
-
-        return valorRepository.save(request);
+    @Transactional(readOnly = true)
+    public List<Valor> buscarValor(String valor){
+        return valorRepository.buscarValor(valor);
     }
-
-    @Override
-    public Valor update(Long userId, Valor request) {
-
-        Set<ConstraintViolation<Valor>> violations = validator.validate(request);
-        if (!violations.isEmpty())
-            throw new ResourceValidationException(ENTITY, violations);
-
-        return valorRepository.findById(userId).map(user ->
-                valorRepository.save(
-                        user.withValorNombre(request.getValorNombre())
-
-                )
-
-
-        ).orElseThrow(() -> new ResourceNotFoundException(ENTITY, userId));
-
-
-
-
-
-    }
-
-    @Override
-    public ResponseEntity<?> delete(Long userid) {
-        return valorRepository.findById(userid).map(post -> {
-            valorRepository.delete(post);
-            return ResponseEntity.ok().build();
-        }).orElseThrow(() -> new ResourceNotFoundException(ENTITY, userid));
-    }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 }

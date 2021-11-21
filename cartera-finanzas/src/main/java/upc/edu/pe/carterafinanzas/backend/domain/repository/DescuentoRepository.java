@@ -3,21 +3,17 @@ package upc.edu.pe.carterafinanzas.backend.domain.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import upc.edu.pe.carterafinanzas.backend.domain.model.entity.Descuento;
-import upc.edu.pe.carterafinanzas.backend.domain.model.entity.Emisor;
-import upc.edu.pe.carterafinanzas.backend.domain.model.entity.TipoMoneda;
-import upc.edu.pe.carterafinanzas.backend.domain.model.entity.Valor;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
+import upc.edu.pe.carterafinanzas.backend.domain.model.entity.*;
 
 import java.util.List;
 
-public interface DescuentoRepository extends JpaRepository<Descuento,Long> {
+@Repository
+public interface DescuentoRepository extends JpaRepository<Descuento,Integer> {
+    @Query("from Descuento j where j.valorMN =: valorMN")
+    public List<Descuento> buscarDescuentoMN(Double valorMN);
 
-    List<Descuento> findByemisorId(Long emisorId);
-    List<Descuento> findByValorId(Long valorId);
-    List<Descuento> findBytipodemonedaId(Long tipodemonedaId);
-
-
-
-
-
+    @Query("from Descuento j where j.valorME =: valorMN")
+    public List<Descuento> buscarDescuentoME(Double valorME);
 }

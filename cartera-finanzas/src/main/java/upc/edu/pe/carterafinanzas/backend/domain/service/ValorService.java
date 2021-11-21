@@ -6,15 +6,14 @@ import org.springframework.http.ResponseEntity;
 import upc.edu.pe.carterafinanzas.backend.domain.model.entity.Valor;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface ValorService {
 
-    List<Valor> getAll();
-    Page<Valor> getAll(Pageable pageable);
-    Valor getById(Long valorId);
-    Valor create(Valor valor);
-    Valor update(Long valorId,Valor request);
-    ResponseEntity<?> delete(Long valorId);
-
+    public boolean grabar(Valor valor);
+    public void eliminar(int idValor);
+    public Optional<Valor> listarId(int idValor);
+    public List<Valor> listar();
+    public List<Valor> buscarValor(String valor);
 
 }
