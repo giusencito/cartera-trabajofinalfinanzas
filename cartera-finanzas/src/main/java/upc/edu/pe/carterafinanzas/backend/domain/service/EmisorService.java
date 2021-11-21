@@ -6,16 +6,15 @@ import org.springframework.http.ResponseEntity;
 import upc.edu.pe.carterafinanzas.backend.domain.model.entity.Emisor;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface EmisorService {
 
-    List<Emisor> getAll();
-    Page<Emisor> getAll(Pageable pageable);
-    Emisor getById(Long EmisorId);
-    Emisor create(Emisor emisor);
-    Emisor update(Long EmisorId,Emisor request);
-    ResponseEntity<?> delete(Long EmisorId);
 
 
-
+    public boolean grabar(Emisor emisor);
+    public void eliminar(Long EmisorId);
+    public Optional<Emisor> listarId(Long EmisorId);
+    public List<Emisor> listar();
+    public List<Emisor> buscarNombre(String nombre);
 }

@@ -1,9 +1,13 @@
 package upc.edu.pe.carterafinanzas.backend.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+
+import org.springframework.transaction.annotation.Transactional;
+
 
 import upc.edu.pe.carterafinanzas.backend.domain.model.entity.ResultadoComitente;
 import upc.edu.pe.carterafinanzas.backend.domain.repository.ResultadoComitenteRepository;
@@ -14,6 +18,7 @@ import upc.edu.pe.carterafinanzas.shared.exception.ResourceValidationException;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 @Service
@@ -23,76 +28,40 @@ public class ResultadoComitenteServiceImpl implements ResultadoComitenteService 
 
 
 
-    private static final String ENTITY = "ResultadoComitente";
 
-    private final ResultadoComitenteRepository resultadoComitenteRepository;
+    @Autowired
+    private  ResultadoComitenteRepository resultadoComitenteRepository;
 
-    private final Validator validator;
+    @Override
+    @Transactional
+    public boolean grabar(ResultadoComitente resultadoComitente) {
 
-    public ResultadoComitenteServiceImpl( ResultadoComitenteRepository resultadoComitenteRepository,Validator validator){
-
-        this.resultadoComitenteRepository=resultadoComitenteRepository;
-        this.validator=validator;
+        ResultadoComitente objActividad = resultadoComitenteRepository.save(resultadoComitente);
+        if(objActividad == null)
+            return false;
+        else
+            return true;
 
 
     }
 
-    public List<ResultadoComitente> getAll() {
+    @Override
+    @Transactional
+    public void eliminar(Long id) {
+        resultadoComitenteRepository.deleteById(id);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Optional<ResultadoComitente> listarId(Long id) {
+        return resultadoComitenteRepository.findById(id);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<ResultadoComitente> listar() {
         return resultadoComitenteRepository.findAll();
     }
-    @Override
-    public Page<ResultadoComitente> getAll(Pageable pageable) {
-        return resultadoComitenteRepository.findAll(pageable);
-    }
-    @Override
-    public ResultadoComitente getById(Long userid) {
-        return resultadoComitenteRepository.findById(userid)
-                .orElseThrow(() -> new ResourceNotFoundException(ENTITY, userid));
-    }
-
-    @Override
-    public ResultadoComitente create(ResultadoComitente request) {
-        Set<ConstraintViolation<ResultadoComitente>> violations = validator.validate(request);
-        if (!violations.isEmpty())
-            throw new ResourceValidationException(ENTITY, violations);
-
-        return resultadoComitenteRepository.save(request);
-    }
-
-    @Override
-    public ResultadoComitente update(Long userId, ResultadoComitente request) {
-
-        Set<ConstraintViolation<ResultadoComitente>> violations = validator.validate(request);
-        if (!violations.isEmpty())
-            throw new ResourceValidationException(ENTITY, violations);
-
-        return resultadoComitenteRepository.findById(userId).map(user ->
-                resultadoComitenteRepository.save(
-                        user.withTotalabono(request.getTotalabono())
-                                .withTotalcargos(request.getTotalcargos())
-
-
-                )
-
-
-        ).orElseThrow(() -> new ResourceNotFoundException(ENTITY, userId));
-
-
-
-
-
-    }
-
-    @Override
-    public ResponseEntity<?> delete(Long userid) {
-        return resultadoComitenteRepository.findById(userid).map(post -> {
-            resultadoComitenteRepository.delete(post);
-            return ResponseEntity.ok().build();
-        }).orElseThrow(() -> new ResourceNotFoundException(ENTITY, userid));
-    }
-
-
-
 
 
 
