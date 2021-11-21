@@ -6,15 +6,13 @@ import org.springframework.http.ResponseEntity;
 import upc.edu.pe.carterafinanzas.backend.domain.model.entity.Usuario;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface UsuarioService {
 
-    List<Usuario> getAll();
-    Page<Usuario> getAll(Pageable pageable);
-    Usuario getById(Long UsuarioId);
-    Usuario create(Usuario usuario);
-    Usuario update(Long UsuarioId,Usuario request);
-    ResponseEntity<?> delete(Long UsuarioId);
-
-
+    public boolean grabar(Usuario usuario);
+    public void eliminar(Long idUsuario);
+    public Optional<Usuario> listarId(Long idUsuario);
+    public List<Usuario> listar();
+    public List<Usuario> buscarUsuario(String nombre);
 }

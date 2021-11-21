@@ -4,91 +4,111 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import upc.edu.pe.carterafinanzas.backend.Resource.Cartera.CarteraResource;
 import upc.edu.pe.carterafinanzas.backend.Resource.Cartera.CreateCarteraResource;
 import upc.edu.pe.carterafinanzas.backend.Resource.Cartera.UpdateCarteraResource;
 import upc.edu.pe.carterafinanzas.backend.domain.model.entity.Cartera;
+import upc.edu.pe.carterafinanzas.backend.domain.model.entity.Usuario;
 import upc.edu.pe.carterafinanzas.backend.domain.service.CarteraService;
+import upc.edu.pe.carterafinanzas.backend.domain.service.UsuarioService;
 import upc.edu.pe.carterafinanzas.backend.mapping.CarteraMapper;
+
+import java.text.ParseException;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
 
 @RestController
-@RequestMapping("/api/v1")
+@RequestMapping("/carteras")
 public class CarteraController {
 
 
     @Autowired
-    private CarteraService carteraService;
+    private UsuarioService uService;
 
     @Autowired
-    private CarteraMapper mapper;
+    private CarteraService cService;
 
-    @Autowired
-    private ModelMapper mapping;
-
-    @GetMapping("/carteras")
-    public Page<CarteraResource> getAllcarteras(Pageable pageable) {
-        return mapper.modelListToPage(carteraService.getAll(), pageable);
+    @RequestMapping("/")
+    public String irPaginaListadoCarteras(Map<String, Object> model) {
+        model.put("listaCarteras", cService.listar());
+        return "listCarteras"; //"listMes" es una pagina del frontend
     }
 
-    @GetMapping("/carteras/{carteraId}")
-    public CarteraResource getForumCommentById(@PathVariable("carteraId") Long carteraId) {
-        return mapper.toResource(carteraService.getById(carteraId));
+    @RequestMapping("/irRegistrar")
+    public String irPaginaRegistrar(Model model) {
+        model.addAttribute("listaUsuarios", uService.listar());
+
+        model.addAttribute("usuario", new Usuario());
+        model.addAttribute("cartera", new Cartera());
+        return "carteras"; //"mes" es una pagina del frontend para insertar y/o modificar
     }
 
-    @PostMapping("/usuarios/{usuarioId}/carteras")
-    public CarteraResource createCartera(@PathVariable Long usuarioId, @RequestBody CreateCarteraResource request) {
-        Cartera forumcomment = mapping.map(request, Cartera.class);
-        return mapping.map(carteraService.create(usuarioId,  forumcomment), CarteraResource.class);
+    @RequestMapping("/registrar")
+    public String registrar(@ModelAttribute Cartera objCartera, BindingResult binRes, Model model) throws ParseException {
+        if(binRes.hasErrors())
+        {
+            model.addAttribute("listaUsuarios", uService.listar());
+            return "carteras";
+        }
+        else {
+            boolean flag = cService.grabar(objCartera);
+            if(flag)
+                return "redirect:/carteras/listar";
+            else {
+                model.addAttribute("mensaje", "Ocurrio un accidente, LUZ ROJA");
+                return "redirect:/carteras/irRegistrar";
+            }
+        }
     }
 
-    @PutMapping("/carteras/{carteraId}")
-    public CarteraResource updateForumComment(@PathVariable Long carteraId, @RequestBody UpdateCarteraResource request) {
-        return mapper.toResource(carteraService.update(carteraId, mapper.toModel(request)));
+    @RequestMapping("/modificar/{id}")
+    public String modificar(@PathVariable Long id, Model model, RedirectAttributes objRedir) throws ParseException{
+        Optional<Cartera> objMes = cService.listarId(id);
+        if(objMes == null) {
+            objRedir.addFlashAttribute("mensaje","Ocurrio un roche, LUZ ROJA");
+            return "redirect:/carteras/listar";
+        }
+        else {
+            if(objMes.isPresent())
+                objMes.ifPresent(o -> model.addAttribute("carteras",o));
+
+            return "carteras";
+        }
     }
 
-    @DeleteMapping("/carteras/{carteraId}")
-    public ResponseEntity<?> deleteForumComment(@PathVariable Long carteraId) {
-        return carteraService.delete(carteraId);
+    @RequestMapping("/eliminar")
+    public String eliminar(Map<String, Object> model, @RequestParam(value="id") Long id) {
+        try {
+            if(id!=null && id>0) {
+                cService.eliminar(id);
+                model.put("listaCarteras", cService.listar());
+            }
+        }
+        catch(Exception ex){
+            System.out.println(ex.getMessage());
+            model.put("mensaje","Ocurrio un error");
+            model.put("listaCarteras", cService.listar());
+        }
+        return "listCarteras";
     }
 
-    @GetMapping("/usuarios/{usuarioId}/carteras")
-    public Page<CarteraResource> getAllForumCommentsByForumId(@PathVariable Long usuarioId,Pageable pageable) {
-        return mapper.modelListToPage(carteraService.findByUsuarioId(usuarioId), pageable);
+    @RequestMapping("/listar")
+    public String listar(Map<String, Object> model) {
+        model.put("listaCarteras", cService.listar());
+        return "listCarteras";
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    @RequestMapping("/listarId")
+    public String listarId(Map<String, Object> model, @ModelAttribute Cartera cartera) throws ParseException
+    {
+        cService.listarId(cartera.getId());
+        return "listCarteras";
+    }
 
 }

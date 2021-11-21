@@ -6,18 +6,17 @@ import org.springframework.http.ResponseEntity;
 import upc.edu.pe.carterafinanzas.backend.domain.model.entity.Moneda;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface MonedaService {
 
-    List<Moneda> getAll();
-    Page<Moneda> getAll(Pageable pageable);
-    Moneda getById(Long MonedaId);
-    Moneda create(Long emisorId,Long valorId,Long tipodemonedaId,Long carteraId,Moneda moneda);
-    Moneda update(Long MonedaId,Moneda request);
-    ResponseEntity<?> delete(Long MonedaId);
-    List<Moneda> findByemisorId(Long emisorId);
-    List<Moneda> findByvalorId(Long valorId);
-    List<Moneda> findBytipodemonedaId(Long tipodemonedaId);
-    List<Moneda>findByCarteraId(Long carteraId);
+    public boolean grabar(Moneda moneda);
+    public void eliminar(Long idMoneda);
+    public Optional<Moneda> listarId(Long idMoneda);
+    public List<Moneda> listar();
+    public List<Moneda> findByemisorId(Long emisorId);
+    public List<Moneda> findByvalorId(Long valorId);
+    public List<Moneda> findBytipodemonedaId(Long tipodemonedaId);
+    public List<Moneda>findByCarteraId(Long carteraId);
 
 }
