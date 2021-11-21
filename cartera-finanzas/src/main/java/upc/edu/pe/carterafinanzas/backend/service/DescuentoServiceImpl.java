@@ -37,13 +37,13 @@ public class DescuentoServiceImpl implements DescuentoService {
 
     @Override
     @Transactional
-    public void eliminar(int idDescuento) {
+    public void eliminar(Long idDescuento) {
         descuentoRepository.deleteById(idDescuento);
     }
 
     @Override
     @Transactional(readOnly = true)
-    public Optional<Descuento> listarId(int idDescuento) {
+    public Optional<Descuento> listarId(Long idDescuento) {
         return descuentoRepository.findById(idDescuento);
     }
 

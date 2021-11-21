@@ -40,13 +40,13 @@ public class Monto_FinanciarServiceImpl implements Monto_FinanciarService {
 
     @Override
     @Transactional
-    public void eliminar(int idMonto) {
+    public void eliminar(Long idMonto) {
         monto_financiarRepository.deleteById(idMonto);
     }
 
     @Override
     @Transactional(readOnly = true)
-    public Optional<Monto_Financiar> listarId(int idMonto) {
+    public Optional<Monto_Financiar> listarId(Long idMonto) {
         return monto_financiarRepository.findById(idMonto);
     }
 
@@ -56,11 +56,10 @@ public class Monto_FinanciarServiceImpl implements Monto_FinanciarService {
         return monto_financiarRepository.findAll();
     }
 
-    /*
     @Override
     @Transactional(readOnly = true)
     public List<Monto_Financiar> buscarMonto(Double resultado){
         return monto_financiarRepository.buscarMonto(resultado);
-    }*/
+    }
 
 }

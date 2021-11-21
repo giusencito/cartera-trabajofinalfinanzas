@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface Monto_FinanciarRepository extends JpaRepository<Monto_Financiar,Integer> {
+public interface Monto_FinanciarRepository extends JpaRepository<Monto_Financiar,Long> {
     @Query("from Monto_Financiar j where j.resultado =: resultado")
     public List<Monto_Financiar> buscarMonto(Double resultado);
 }

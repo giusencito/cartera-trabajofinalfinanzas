@@ -10,7 +10,7 @@ import upc.edu.pe.carterafinanzas.backend.domain.model.entity.*;
 import java.util.List;
 
 @Repository
-public interface DescuentoRepository extends JpaRepository<Descuento,Integer> {
+public interface DescuentoRepository extends JpaRepository<Descuento,Long> {
     @Query("from Descuento j where j.valorMN =: valorMN")
     public List<Descuento> buscarDescuentoMN(Double valorMN);
 

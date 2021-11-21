@@ -13,8 +13,8 @@ import java.util.Optional;
 public interface Monto_FinanciarService {
 
     public boolean grabar(Monto_Financiar monto);
-    public void eliminar(int idMonto);
-    public Optional<Monto_Financiar> listarId(int idMonto);
+    public void eliminar(Long idMonto);
+    public Optional<Monto_Financiar> listarId(Long idMonto);
     public List<Monto_Financiar> listar();
-    //public List<Monto_Financiar> buscarMonto(Double resultado);
+    public List<Monto_Financiar> buscarMonto(Double resultado);
 }

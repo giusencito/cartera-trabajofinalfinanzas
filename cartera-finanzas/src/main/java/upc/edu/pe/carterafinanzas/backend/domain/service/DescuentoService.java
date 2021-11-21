@@ -12,8 +12,8 @@ import java.util.Optional;
 public interface DescuentoService {
 
     public boolean grabar(Descuento descuento);
-    public void eliminar(int idDescuento);
-    public Optional<Descuento> listarId(int idDescuento);
+    public void eliminar(Long idDescuento);
+    public Optional<Descuento> listarId(Long idDescuento);
     public List<Descuento> listar();
     public List<Descuento> buscarDescuentoMN(Double valorMN);
     public List<Descuento> buscarDescuentoME(Double valorME);
