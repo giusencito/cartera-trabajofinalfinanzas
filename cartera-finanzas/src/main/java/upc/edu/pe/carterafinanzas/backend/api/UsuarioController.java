@@ -64,7 +64,7 @@ public class UsuarioController {
         Optional<Usuario> objMes = uService.listarId(id);
         if(objMes == null) {
             objRedir.addFlashAttribute("mensaje","Ocurrio un roche, LUZ ROJA");
-            return "redirect:/mes/listar";
+            return "redirect:/usuario/listar";
         }
         else {
             if(objMes.isPresent())
