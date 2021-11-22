@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -22,7 +23,7 @@ import java.util.Map;
 import java.util.Optional;
 
 
-@RestController
+@Controller
 @RequestMapping("/usuario/")
 public class UsuarioController {
 
@@ -34,6 +35,11 @@ public class UsuarioController {
     public String irPaginaListadoMes(Map<String, Object> model) {
         model.put("listaUsuarios", uService.listar());
         return "listUsuarios"; //"listMes" es una pagina del frontend
+    }
+
+    @RequestMapping("2")
+    public String irPaginaListadoMes2() {
+        return "login"; //"listMes" es una pagina del frontend
     }
 
     @RequestMapping("/irRegistrar")

@@ -17,7 +17,7 @@ import upc.edu.pe.carterafinanzas.backend.mapping.ComitenteMapper;
 @RequestMapping("/api/v1")
 public class ComitenteController {
 
-
+/*
     @Autowired
     private ComitenteService comitenteService;
 
@@ -67,7 +67,7 @@ public class ComitenteController {
     }
 
 
-
+*/
 
 
 }

@@ -20,7 +20,7 @@ import upc.edu.pe.carterafinanzas.backend.mapping.DescuentoMapper;
 @RequestMapping("/api/v1")
 public class DescuentoController {
 
-
+/*
     @Autowired
     private DescuentoService descuentoService;
 
@@ -71,7 +71,7 @@ public class DescuentoController {
     @GetMapping("/tipodemonedas/{tipodemonedaId}/descuentos")
     public Page<DescuentoResource> getAllForumCommentsBytipomonedaId(@PathVariable Long tipodemonedaId,Pageable pageable) {
         return mapper.modelListToPage(descuentoService.findBytipodemonedaId(tipodemonedaId), pageable);
-    }
+    }*/
 
 
 

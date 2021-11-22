@@ -17,7 +17,7 @@ import upc.edu.pe.carterafinanzas.backend.mapping.ValorMapper;
 public class ValorController {
 
 
-
+/*
     @Autowired
     private ValorService valorService;
 
@@ -53,7 +53,7 @@ public class ValorController {
 
 
 
-
+*/
 
 
 

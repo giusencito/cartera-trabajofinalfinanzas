@@ -24,7 +24,7 @@ import upc.edu.pe.carterafinanzas.backend.mapping.Monto_FinanciarMapper;
 public class Monto_FinanciarController {
 
 
-
+/*
 
     @Autowired
     private Monto_FinanciarService monto_financiarService;
@@ -66,7 +66,7 @@ public class Monto_FinanciarController {
         return mapper.modelListToPage(monto_financiarService.findBydescuentoID(DescuentoId), pageable);
     }
 
-
+*/
 
 
 
