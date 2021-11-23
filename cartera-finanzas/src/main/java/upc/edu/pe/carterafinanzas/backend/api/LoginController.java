@@ -10,32 +10,32 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import upc.edu.pe.carterafinanzas.backend.domain.model.entity.Usuario;
 import upc.edu.pe.carterafinanzas.backend.domain.service.UsuarioService;
 
-@RequestMapping("/login")
+@RequestMapping
 @Controller
 public class LoginController {
 
     @Autowired
     private UsuarioService uService;
 
-    @GetMapping("/")
+    @GetMapping("/login")
     public String login() {
-        return "bienvenido";
+        return "login";
     }
 
     @RequestMapping("/registro")
     public String irPaginaRegistrarComo() {
-        return "login"; //"listEmpleados" es una pagina del frontend...
+        return "signup"; //"listEmpleados" es una pagina del frontend...
     }
 
-    @RequestMapping("/iniciarSesion")
-    public String irPaginaIniciarSesion() {
-        return "login2"; //"listEmpleados" es una pagina del frontend...
+    @RequestMapping("/cambiocontraseña")
+    public String irPaginaCambioContraseña() {
+        return "changepassword"; //"listEmpleados" es una pagina del frontend...
     }
 
     @RequestMapping("/irRegistrarUsuario")
     public String irPaginaRegistrarUsuario(Model model) {
         model.addAttribute("usuario", new Usuario());
-        return "Usuario";
+        return "Home Completo";
     }
 
 }
