@@ -27,12 +27,12 @@
             <div class="col">
                 <div class="container p-5 margen rounded" style="background-color:rgb(180, 228, 249, 0.5)">
                     <h1 class="text-center font-weight-bold text-black">Iniciar Sesión</h1>
-                    <form class="px-5">
+                    <form class="px-5"th:action="@{/irRegistrarUsuario}">
                         <input type="text" class="form-control form-control-sm mb-3 mt-3" placeholder="email">
                         <input type="password" class="form-control form-control-sm mb-4" placeholder="contraseña">
-                        <button type="button" class="btn btn-sm btn-block text-white font-weight-bold mb-2" style="background-color: rgb(39, 50, 90);">Ingresar</button>
-                        <a class="font-weight-bold" style="color: rgb(196, 196, 196)">No tengo cuenta</a>
-                        <a class="font-weight-bold" style="color: rgb(196, 196, 196)">¿Olvidaste tu contraseña?</a>
+                        <button type="submit" class="btn btn-sm btn-block text-white font-weight-bold mb-2" style="background-color: rgb(39, 50, 90);">Ingresar</button>
+                        <a class="font-weight-bold" style="color: rgb(196, 196, 196)" th:href="@{/registro}">No tengo cuenta</a>
+                        <a class="font-weight-bold" style="color: rgb(196, 196, 196)" th:href="@{/cambiocontraseña}">¿Olvidaste tu contraseña?</a>
                     </form>
                 </div>
             </div> 
