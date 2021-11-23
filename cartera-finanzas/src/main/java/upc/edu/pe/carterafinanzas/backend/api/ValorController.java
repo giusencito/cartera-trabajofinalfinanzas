@@ -10,9 +10,9 @@ import upc.edu.pe.carterafinanzas.backend.Resource.Valor.UpdateValorResource;
 import upc.edu.pe.carterafinanzas.backend.Resource.Valor.ValorResource;
 import upc.edu.pe.carterafinanzas.backend.domain.service.ValorService;
 import upc.edu.pe.carterafinanzas.backend.mapping.ValorMapper;
+import org.springframework.stereotype.Controller;
 
-
-@RestController
+@Controller
 @RequestMapping("/api/v1/valores")
 public class ValorController {
 

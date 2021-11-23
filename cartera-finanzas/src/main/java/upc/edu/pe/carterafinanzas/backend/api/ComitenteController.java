@@ -12,8 +12,9 @@ import upc.edu.pe.carterafinanzas.backend.Resource.Comitente.UpdateComitenteReso
 import upc.edu.pe.carterafinanzas.backend.domain.model.entity.Comitente;
 import upc.edu.pe.carterafinanzas.backend.domain.service.ComitenteService;
 import upc.edu.pe.carterafinanzas.backend.mapping.ComitenteMapper;
+import org.springframework.stereotype.Controller;
 
-@RestController
+@Controller
 @RequestMapping("/api/v1")
 public class ComitenteController {
 

@@ -20,6 +20,7 @@ import upc.edu.pe.carterafinanzas.backend.domain.service.EmisorService;
 import upc.edu.pe.carterafinanzas.backend.domain.service.TipoMonedaService;
 import upc.edu.pe.carterafinanzas.backend.domain.service.ValorService;
 import upc.edu.pe.carterafinanzas.backend.mapping.DescuentoMapper;
+import org.springframework.stereotype.Controller;
 
 import java.text.ParseException;
 import java.util.List;
@@ -27,7 +28,7 @@ import java.util.Map;
 import java.util.Optional;
 
 
-@RestController
+@Controller
 @RequestMapping("/descuentos")
 public class DescuentoController {
 

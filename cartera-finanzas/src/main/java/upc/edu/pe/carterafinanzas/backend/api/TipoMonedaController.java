@@ -16,14 +16,14 @@ import upc.edu.pe.carterafinanzas.backend.domain.model.entity.Usuario;
 import upc.edu.pe.carterafinanzas.backend.domain.service.TipoMonedaService;
 import upc.edu.pe.carterafinanzas.backend.domain.service.UsuarioService;
 import upc.edu.pe.carterafinanzas.backend.mapping.TipoMonedaMapper;
-
+import org.springframework.stereotype.Controller;
 import java.text.ParseException;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
 
-@RestController
+@Controller
 @RequestMapping("/TipoMoneda")
 public class TipoMonedaController {
 

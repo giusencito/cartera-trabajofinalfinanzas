@@ -19,6 +19,7 @@ import upc.edu.pe.carterafinanzas.backend.Resource.Moneda.UpdateMonedaResource;
 import upc.edu.pe.carterafinanzas.backend.domain.model.entity.*;
 import upc.edu.pe.carterafinanzas.backend.domain.service.*;
 import upc.edu.pe.carterafinanzas.backend.mapping.MonedaMapper;
+import org.springframework.stereotype.Controller;
 
 import java.text.ParseException;
 import java.util.List;
@@ -26,7 +27,7 @@ import java.util.Map;
 import java.util.Optional;
 
 
-@RestController
+@Controller
 @RequestMapping("/moneda")
 public class MonedaController {
 

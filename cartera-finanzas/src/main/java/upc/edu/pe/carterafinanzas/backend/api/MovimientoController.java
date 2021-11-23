@@ -26,13 +26,13 @@ import upc.edu.pe.carterafinanzas.backend.domain.service.MovimientoService;
 import upc.edu.pe.carterafinanzas.backend.domain.service.ResultadoMovimientoService;
 import upc.edu.pe.carterafinanzas.backend.domain.service.UsuarioService;
 import upc.edu.pe.carterafinanzas.backend.mapping.MovimientoMapper;
-
+import org.springframework.stereotype.Controller;
 import java.text.ParseException;
 import java.util.Map;
 import java.util.Optional;
 
 
-@RestController
+@Controller
 @RequestMapping("/movimiento")
 public class MovimientoController {
 

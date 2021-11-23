@@ -19,14 +19,14 @@ import upc.edu.pe.carterafinanzas.backend.domain.model.entity.Usuario;
 import upc.edu.pe.carterafinanzas.backend.domain.service.ResultadoMovimientoService;
 import upc.edu.pe.carterafinanzas.backend.domain.service.UsuarioService;
 import upc.edu.pe.carterafinanzas.backend.mapping.ResultadoMovimientoMapper;
-
+import org.springframework.stereotype.Controller;
 import java.text.ParseException;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
 
-@RestController
+@Controller
 @RequestMapping("/resultadomovimiento")
 public class ResultadoMovimientoController {
 
