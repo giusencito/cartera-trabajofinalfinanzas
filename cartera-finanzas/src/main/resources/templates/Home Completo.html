@@ -1,0 +1,160 @@
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <title>Iniciar sesión</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" th:href="@{/css/bootstrap.css}">
+    <link rel="stylesheet" th:href="@{/css/all.min.css}">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="preconnect" href="https://fonts.googleapis.com/%22%3E">
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@700&display=swap" rel="stylesheet"> 
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script th:src="@{/js/bootstrap.min.js}"></script>
+</head>
+
+<body>
+    <div class="login">
+        <div class="row">
+            <div class="col-10">
+                <nav class="navbar navbar-expand-sm">
+                  </nav>
+            </div>
+            <div class="col-2">
+                <a class="nav-link font-weight-bold py-4" style="color:white; background-color:rgb(57, 136, 181);" href="#">Cerrar sesión</a>
+            </div>
+        </div>
+    </div>
+
+    <table class ="table">
+        <tr>
+            <td style="border:0px;">
+                <div class="card" style="width: 350px; margin:auto;">
+                    <img src="../static/img/Calcular_Tasa.png">
+                </div>
+                <div style="padding-bottom: 20px;"></div>
+                <div class="m-auto text-center">
+                <button type="button" class="btn font-weight-bold" 
+                style="color:white; background-color: 83BBEE; border-radius: 10px; padding-right:50px; padding-left:50px" data-toggle="modal" data-target="#myModal">Calcular Tasas</button></div>
+
+                <div class="modal" id="myModal">
+                    <div class="modal-dialog" style= "margin-top: 200px;">
+                      <div class="modal-content">
+                  
+                        <div class="modal-header" style="border:0px;">
+                          <div style="padding-right: 110px;"></div>  
+                          <div class="m-auto text-center"> 
+                          <h4 class="modal-title font-weight-bold">Elegir Tasa</h4></div>
+                          <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        </div>
+                  
+                        <div class="modal-body">
+                        <table class="table">
+                            <tr>    
+                                <td style="border:0px;">
+                                <div class="m-auto text-center">
+                                <button type="button" class="btn font-weight-bold" 
+                                style="color:white; background-color: 83BBEE; border-radius: 10px; padding-right:88px; padding-left:88px">Tasa Simple</button></div>
+                                </td>
+                            </tr>
+                            <tr>    
+                                <td style="border:0px;">
+                                <div class="m-auto text-center">
+                                <button type="button" class="btn font-weight-bold" 
+                                style="color:white; background-color: 83BBEE; border-radius: 10px; padding-right:83px; padding-left:83px">Tasa Nominal</button></div>
+                                </td>
+                            </tr>
+                            <tr>    
+                                <td style="border:0px;">
+                                <div class="m-auto text-center">
+                                <button type="button" class="btn font-weight-bold" 
+                                style="color:white; background-color: 83BBEE; border-radius: 10px; padding-right:85px; padding-left:85px">Tasa Efectiva</button></div>
+                                </td>
+                            </tr>
+                            <tr>    
+                                <td style="border:0px;">
+                                <div class="m-auto text-center">
+                                <button type="button" class="btn font-weight-bold" 
+                                style="color:white; background-color: 83BBEE; border-radius: 10px; padding-right:50px; padding-left:50px">Tasa de Costo Efectivo</button></div>
+                                </td>
+                            </tr>    
+                        </table>
+                        </div>
+                      </div>
+                    </div>
+                </div>
+            </td>
+            <td style="border:0px;">
+                <div class="card" style="width: 390px; margin:auto;">
+                    <img src="../static/img/Cartera.jpg">
+                </div>
+                <div style="padding-bottom: 20px;"></div>
+                <div class="m-auto text-center">
+                <button type="button" class="btn font-weight-bold" 
+                style="color:white; background-color: 83BBEE; border-radius: 10px; padding-right:50px; padding-left:50px" data-toggle="modal" data-target="#myModal2">Cartera</button></div>
+
+                <div class="modal" id="myModal2">
+                    <div class="modal-dialog" style= "margin-top: 250px;">
+                      <div class="modal-content">
+                  
+                        <div class="modal-header" style="border:0px;">
+                          <div style="padding-right: 95px;"></div>  
+                          <div class="m-auto text-center"> 
+                          <h4 class="modal-title font-weight-bold">Elegir Cartera</h4></div>
+                          <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        </div>
+                  
+                        <div class="modal-body">
+                        <table class="table">
+                            <tr>    
+                                <td style="border:0px;">
+                                <div class="m-auto text-center">
+                                <button type="button" class="btn font-weight-bold" 
+                                style="color:white; background-color: 83BBEE; border-radius: 10px; padding-right:50px; padding-left:50px">Cartera MN</button></div>
+                                </td>
+                            </tr>
+                            <tr>    
+                                <td style="border:0px;">
+                                <div class="m-auto text-center">
+                                <button type="button" class="btn font-weight-bold" 
+                                style="color:white; background-color: 83BBEE; border-radius: 10px; padding-right:50px; padding-left:50px">Cartera ME</button></div>
+                                </td>
+                            </tr>    
+                        </table>
+                        </div>
+                      </div>
+                    </div>
+                </div>
+            </td>
+            <td style="border:0px;">
+                <div class="card" style="width: 350px; margin:auto;">
+                    <img src="../static/img/Movimiento.png">
+                </div>
+                <div style="padding-bottom: 20px;"></div>
+                <div class="m-auto text-center">
+                <button type="button" class="btn font-weight-bold" 
+                style="color:white; background-color: 83BBEE; border-radius: 10px; padding-right:50px; padding-left:50px">Movimiento</button></div>
+            </td>
+        </tr>
+        <tr>
+            <td style="border:0px;">
+            </td>
+            <td style="border:0px;">
+                <div class="card" style="width: 350px; margin:auto;">
+                    <img src="../static/img/Descuento.png">
+                </div>
+                <div style="padding-bottom: 20px;"></div>
+                <div class="m-auto text-center">
+                <button type="button" class="btn font-weight-bold" 
+                style="color:white; background-color: 83BBEE; border-radius: 10px; padding-right:50px; padding-left:50px">Descuento</button></div>
+            </td>
+        </tr>
+    </table>
+</body>
