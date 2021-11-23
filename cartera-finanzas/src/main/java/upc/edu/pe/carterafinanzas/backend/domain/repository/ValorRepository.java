@@ -7,7 +7,7 @@ import upc.edu.pe.carterafinanzas.backend.domain.model.entity.Valor;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface ValorRepository extends JpaRepository<Valor,Integer> {
+public interface ValorRepository extends JpaRepository<Valor,Long> {
     @Query("from Valor j where j.ValorNombre like %:valor%")
     List<Valor> buscarValor(@Param("valor") String valor);
 }

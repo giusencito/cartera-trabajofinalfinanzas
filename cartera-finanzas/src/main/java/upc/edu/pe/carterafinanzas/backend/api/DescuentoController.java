@@ -118,14 +118,14 @@ public class DescuentoController {
     @RequestMapping("/listar")
     public String listar(Map<String, Object> model) {
         model.put("listaDescuentos", dService.listar());
-        return "listaDescuentos";
+        return "listDescuentos";
     }
 
     @RequestMapping("/listarId")
     public String listarId(Map<String, Object> model, @ModelAttribute Descuento descuento) throws ParseException
     {
         dService.listarId(descuento.getId());
-        return "listDescuento";
+        return "listDescuentos";
     }
 
     @RequestMapping("/irBuscar")

@@ -36,13 +36,13 @@ public class ValorServiceImpl implements ValorService {
 
     @Override
     @Transactional
-    public void eliminar(int idValor) {
+    public void eliminar(Long idValor) {
         valorRepository.deleteById(idValor);
     }
 
     @Override
     @Transactional(readOnly = true)
-    public Optional<Valor> listarId(int idValor) {
+    public Optional<Valor> listarId(Long idValor) {
         return valorRepository.findById(idValor);
     }
 

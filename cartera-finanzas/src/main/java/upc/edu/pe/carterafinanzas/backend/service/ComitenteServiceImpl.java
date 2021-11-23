@@ -4,10 +4,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import upc.edu.pe.carterafinanzas.backend.domain.model.entity.Comitente;
-import upc.edu.pe.carterafinanzas.backend.domain.model.entity.Descuento;
-import upc.edu.pe.carterafinanzas.backend.domain.model.entity.Emisor;
-import upc.edu.pe.carterafinanzas.backend.domain.model.entity.ResultadoComitente;
+import upc.edu.pe.carterafinanzas.backend.domain.model.entity.*;
 import upc.edu.pe.carterafinanzas.backend.domain.repository.ComitenteRepository;
 import upc.edu.pe.carterafinanzas.backend.domain.repository.EmisorRepository;
 import upc.edu.pe.carterafinanzas.backend.domain.repository.ResultadoComitenteRepository;
@@ -38,13 +35,13 @@ public class ComitenteServiceImpl implements ComitenteService {
 
     @Override
     @Transactional
-    public void eliminar(int idComitente) {
+    public void eliminar(Long idComitente) {
         comitenteRepository.deleteById(idComitente);
     }
 
     @Override
     @Transactional(readOnly = true)
-    public Optional<Comitente> listarId(int idComitente) {
+    public Optional<Comitente> listarId(Long idComitente) {
         return comitenteRepository.findById(idComitente);
     }
 
@@ -52,6 +49,12 @@ public class ComitenteServiceImpl implements ComitenteService {
     @Transactional(readOnly = true)
     public List<Comitente> listar() {
         return comitenteRepository.findAll();
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<Comitente> buscarResultadoComitente(Long id) {
+        return comitenteRepository.buscarResultadoComitente(id);
     }
 
 }

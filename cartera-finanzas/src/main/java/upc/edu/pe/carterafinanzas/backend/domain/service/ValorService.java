@@ -11,8 +11,8 @@ import java.util.Optional;
 public interface ValorService {
 
     public boolean grabar(Valor valor);
-    public void eliminar(int idValor);
-    public Optional<Valor> listarId(int idValor);
+    public void eliminar(Long idValor);
+    public Optional<Valor> listarId(Long idValor);
     public List<Valor> listar();
     public List<Valor> buscarValor(String valor);
 
