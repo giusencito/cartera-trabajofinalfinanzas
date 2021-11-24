@@ -176,4 +176,9 @@ public class DescuentoController {
         return "Descuento";
     }
 
+    @RequestMapping("/montodesembolsar")
+    public String irPaginaMontoDesembolsar() {
+        return "Monto Desembolsar";
+    }
+
 }

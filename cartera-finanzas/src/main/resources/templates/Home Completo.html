@@ -12,8 +12,46 @@
     <link rel="stylesheet" th:href="@{/css/style.css}">
     <link rel="preconnect" href="https://fonts.googleapis.com/%22%3E">
     <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@700&display=swap" rel="stylesheet"> 
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@700&display=swap" rel="stylesheet">
+    <style>
+        #header{
+            background-image: url("../img/fondoiniciosesion.jpg");
+            background-size: cover;
+            background-position: center;
+            height:400px;
+        }
+        .login, .signup, .changepassword{
+            background-image:url("../img/fondoiniciosesion.jpg");
+            background-size:cover;
+        }
 
+        .navegacion{
+            background-image:url("../img/fondoiniciosesion.jpg");
+            background-size:cover;
+        }
+
+        .margen{
+            margin-top: 40%;
+        }
+
+        .margen2{
+            margin-top: 30%;
+        }
+
+        .margen3{
+            margin-top: 100%;
+        }
+
+        .margen4{
+            margin-top: 150%;
+        }
+
+        a{
+            text-align: center;
+            display: inline-block;
+            width: 100%;
+        }
+    </style>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
 
@@ -30,7 +68,7 @@
                   </nav>
             </div>
             <div class="col-2">
-                <a class="nav-link font-weight-bold py-4" style="color:white; background-color:rgb(57, 136, 181);" href="#">Cerrar sesión</a>
+                <a class="nav-link font-weight-bold py-4" style="color:white; background-color:rgb(57, 136, 181);" th:href="@{/login}">Cerrar sesión</a>
             </div>
         </div>
     </div>
@@ -62,7 +100,7 @@
                             <tr>    
                                 <td style="border:0px;">
                                 <div class="m-auto text-center">
-                                <a type="button" th:href="@{/montos//Tasa_Simple}" class="btn font-weight-bold"
+                                <a type="button" th:href="@{/montos/Tasa_Simple}" class="btn font-weight-bold"
                                 style="color:white; background-color: #83BBEE; border-radius: 10px; padding-right:88px; padding-left:88px">Tasa Simple</a></div>
                                 </td>
                             </tr>
@@ -186,8 +224,8 @@
                 </div>
                 <div style="padding-bottom: 20px;"></div>
                 <div class="m-auto text-center">
-                <button type="button" th:href="@{/descuentos/descuento}" class="btn font-weight-bold"
-                style="color:white; background-color: #83BBEE; border-radius: 10px; padding-right:50px; padding-left:50px">Descuento</button></div>
+                <a type="button" th:href="@{/descuentos/descuento}" class="btn font-weight-bold"
+                style="color:white; background-color: #83BBEE; border-radius: 10px; padding-right:50px; padding-left:50px">Descuento</a></div>
             </td>
         </tr>
     </table>

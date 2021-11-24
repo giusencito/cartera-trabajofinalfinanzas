@@ -33,7 +33,21 @@
     </head>
 
     <body>
-    <div th:replace="fragments/navbar2 :: header"></div>
+    <div class="login">
+        <div class="row">
+            <div class="col-10">
+                <nav class="navbar navbar-expand-sm">
+                    <div class="align-content-start">
+                        <h1><a href="javascript:history.back()"><i class="fas fa-arrow-left mt-2" style="color: white;"></i></a></h1>
+                    </div>
+                </nav>
+            </div>
+            <div class="col-2">
+                <a class="nav-link font-weight-bold py-4" style="color:white; background-color:rgb(57, 136, 181)"
+                   th:href="@{/login}">Cerrar sesión</a>
+            </div>
+        </div>
+    </div>
     <br>
         <div class="row ml-2">
             <div class="col-7">
