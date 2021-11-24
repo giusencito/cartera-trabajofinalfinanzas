@@ -63,5 +63,21 @@ public class UsuarioServiceImpl implements UsuarioService {
         return dUsuario.buscarUsuario(nombre);
 
     }
+    @Override
+    @Transactional(readOnly = true)
+    public List<Usuario> inicioSesionUsuario(String correo, String password){
+        return dUsuario.inicioSesionUsuario(correo, password);
+    }
 
+    @Override
+    @Transactional
+    public int existeUsuario(String correo){
+        return dUsuario.UsuarioExiste(correo);
+    }
+
+    @Override
+    @Transactional
+    public List<Usuario> CuentaUsuario(String correo){
+        return dUsuario.CuentaUsuario(correo);
+    }
 }
