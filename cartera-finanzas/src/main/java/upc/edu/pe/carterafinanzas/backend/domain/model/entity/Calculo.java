@@ -38,4 +38,6 @@ public class Calculo {
     private double interes;
 
     private double monto;
+
+    private double tasaefectiva;
 }

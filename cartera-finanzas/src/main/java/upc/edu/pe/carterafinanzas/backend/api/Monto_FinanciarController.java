@@ -193,5 +193,18 @@ public class Monto_FinanciarController {
             return "tasanominal";
         }
     }
-
+    @RequestMapping("/calcularTasaEfectiva")
+    public String calcularTasaEfectiva(@ModelAttribute Calculo objCalculo, BindingResult binRes, Model model) throws org.springframework.expression.ParseException{
+        if(binRes.hasErrors())
+        {
+            model.addAttribute("calculo", objCalculo);
+            return "redirect:/montos/Tasa_Efectiva";
+        }
+        else {
+            objCalculo.setTasaInteresCapitalizacion(cService.TasaNominal(objCalculo));
+            objCalculo.setTasaefectiva(cService.TasaEfectiva(objCalculo));
+            model.addAttribute("calculo", objCalculo);
+            return "tasaefectiva";
+        }
+    }
 }
