@@ -3,7 +3,7 @@
     <head>
         <!-- Required meta tags -->
         <meta charset="utf-8">
-        <title>Crear cuenta</title>
+        <title>Cambio de contraseña</title>
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
         <!-- Bootstrap CSS -->
@@ -59,18 +59,15 @@
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
         <script th:src="@{/js/bootstrap.min.js}"></script>
     </head>
-    <body class="signup">
+    <body class="login">
         <div class="row">
             <div class="col"></div> 
             <div class="col">
-                <div class="container p-5 margen2 rounded" style="background-color:rgb(180, 228, 249, 0.5)">
-                    <h1 class="text-center font-weight-bold text-black">Crear Cuenta</h1>
-                    <form class="px-5" th:action="@{/RegistrarUsuario}" th:object="${usuario}" method="post">
-                        <input type="text" class="form-control mb-3 mt-3" th:field="*{Email}" placeholder="Email">
-                        <input type="password" class="form-control mb-3 mt-3" th:field="*{Password}" placeholder="Contraseña">
-                        <input type="password" class="form-control mb-3 mt-3" id="usr" placeholder="Repetir contraseña">
-                        <input type="text" class="form-control mb-4" th:field="*{Nombre}" placeholder="Nombre de usuario">
-                        <button type="submit" class="btn btn-block text-white font-weight-bold mb-2" style="background-color: rgb(39, 50, 90);">Crear</button>
+                <div class="container p-5 margen rounded" style="background-color:rgb(180, 228, 249, 0.5)">
+                    <h3 class="text-center font-weight-bold text-black">Escribe tu correo</h3>
+                    <form class="px-5" th:action="@{/cambiocontraseña}" th:object="${usuario}" method="post">
+                        <input type="text" class="form-control form-control-sm mb-3 mt-3" th:field="*{Email}" placeholder="Email">
+                        <button type="submit" class="btn btn-sm btn-block text-white font-weight-bold mb-2" style="background-color: rgb(39, 50, 90);">Aceptar</button>
                     </form>
                 </div>
             </div> 

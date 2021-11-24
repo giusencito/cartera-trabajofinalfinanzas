@@ -32,19 +32,6 @@ public class Usuario {
     @NotNull
     @NotBlank
     @Size(max = 50)
-    private String Dirreccion;
-
-
-    @NotNull
-    @NotBlank
-    @Size(max = 10)
-    private String Ciudad;
-
-
-
-    @NotNull
-    @NotBlank
-    @Size(max = 50)
     private String Email;
 
 

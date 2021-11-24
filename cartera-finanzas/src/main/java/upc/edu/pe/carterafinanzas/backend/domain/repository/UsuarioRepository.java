@@ -12,4 +12,14 @@ public interface UsuarioRepository extends JpaRepository<Usuario,Long> {
 
     @Query("from Usuario u where u.Nombre like %:nombre%")
     List<Usuario> buscarUsuario(@Param("nombre") String nombre);
+
+    @Query("from Usuario u where u.Email =:correo and u.Password =:password")
+    List<Usuario> inicioSesionUsuario(@Param("correo") String correo, @Param("password") String password);
+
+    @Query("select Count(u.Email) from Usuario u where u.Email =:correo")
+    int UsuarioExiste(@Param("correo") String correo);
+
+    @Query("from Usuario u where u.Email =:correo")
+    List<Usuario> CuentaUsuario(@Param("correo") String correo);
+
 }
