@@ -151,10 +151,10 @@ public class Monto_FinanciarController {
     }
     @RequestMapping("/Tasa_Efectiva")
     public String irTasaEfectivo() {
-        return "tasaefectivo";
+        return "tasaefectiva";
     }
     @RequestMapping("/Tasa_Costo_Efectivo")
     public String irTasadeCostoEfectivo() {
-        return "tasasdecostoefectivo";
+        return "tasadecostoefectivo";
     }
 }
