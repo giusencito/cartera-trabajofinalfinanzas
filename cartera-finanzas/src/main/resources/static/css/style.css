@@ -1,0 +1,38 @@
+#header{
+    background-image: url(../img/background.jpg);
+    background-size: cover;
+    background-position: center;
+    height:400px;
+}
+.login, .signup, .changepassword{
+    background-image:url("../img/fondoiniciosesion.jpg");
+    background-size:cover;
+}
+
+.navegacion{
+    background-image:url("../img/fondoiniciosesion.jpg");
+    background-size:cover;
+}
+
+.margen{
+    margin-top: 40%;
+}
+
+.margen2{
+    margin-top: 30%;
+}
+
+.margen3{
+    margin-top: 100%;
+}
+
+.margen4{
+    margin-top: 150%;
+}
+
+a{
+    text-align: center;
+    display: inline-block;
+    width: 100%;
+  }
+
