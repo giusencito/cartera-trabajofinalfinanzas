@@ -33,8 +33,22 @@
     </head>
 
     <body>
-    <div th:replace="fragments/navbar2 :: header"></div>
+    <div class="login">
+        <div class="row">
+            <div class="col-10">
+                <nav class="navbar navbar-expand-sm">
+                    <div class="align-content-start">
+                        <h1><a href=""><i class="fas fa-arrow-left mt-2" style="color: white;"></i></a></h1>
+                    </div>
+                </nav>
+            </div>
+            <div class="col-2">
+                <a class="nav-link font-weight-bold py-4" style="color:white; background-color:rgb(57, 136, 181)" href="#">Cerrar sesión</a>
+            </div>
+        </div>
+    </div>
     <br>
+    <form>
         <div class="row ml-2">
             <div class="col-7">
                 <h1> TASA SIMPLE</h1>
@@ -129,11 +143,12 @@
                 <div class="row">
                     <div class="col-6"></div>
                     <div class="col-6">
-                        <button class="btn btn-block text-white font-weight-bold margen3 mb-4" style="background-color: rgb(131, 187, 238);">CALCULAR</button>
-                        <button class="btn btn-block text-white font-weight-bold" style="background-color: rgb(131, 187, 238);">BORRAR</button>
+                        <button type="submit" class="btn btn-block text-white font-weight-bold margen3 mb-4" style="background-color: rgb(131, 187, 238);">CALCULAR</button>
+                        <a th:href="@{/monto/Tasa_Simple}"class="btn btn-block text-white font-weight-bold" style="background-color: rgb(131, 187, 238);">BORRAR</a>
                     </div>
                 </div>
             </div>
         </div>
+    </form>
     </body>
 </html>
