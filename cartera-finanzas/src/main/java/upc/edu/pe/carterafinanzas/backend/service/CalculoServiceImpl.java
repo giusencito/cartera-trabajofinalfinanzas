@@ -17,10 +17,10 @@ public class CalculoServiceImpl implements CalculoService {
 
     @Override
     @Transactional
-    public Long TasaSimple(Calculo c) {
-        Long interes;
+    public double TasaSimple(Calculo c) {
+        double interes = 0;
         switch (c.getPeriodoTasa()){
-            case "Diaria": interes=(Long)(c.getCapital()*(c.getTasadeInteres()/100)*((c.getTiempo())/360));
+            case "Diaria": interes=(double)(c.getCapital()*(c.getTasadeInteres()/100)*((c.getTiempo())/360));
                             break;
             case "Quincenal": break;
             case "Mensual": break;
@@ -28,7 +28,6 @@ public class CalculoServiceImpl implements CalculoService {
             case "Trimestral": break;
             case "Semestral": break;
             case "Anual": break;
-
         }
         return interes;
     }

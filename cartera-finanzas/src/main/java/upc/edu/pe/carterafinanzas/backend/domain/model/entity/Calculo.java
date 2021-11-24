@@ -31,7 +31,7 @@ public class Calculo {
 
     private String periodo;
 
-    private Long interes;
+    private double interes;
 
-    private Long monto;
+    private double monto;
 }
