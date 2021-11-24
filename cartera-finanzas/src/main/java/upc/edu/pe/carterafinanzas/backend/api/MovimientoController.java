@@ -125,7 +125,7 @@ public class MovimientoController {
     }
     @RequestMapping("/Movimiento_ME")
     public String irMovimientoME() {
-        return "Movimiento MN";
+        return "Movimiento ME";
     }
 }
 
