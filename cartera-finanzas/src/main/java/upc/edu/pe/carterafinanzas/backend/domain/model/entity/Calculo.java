@@ -21,17 +21,21 @@ public class Calculo {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Long Capital;
+    private double Capital;
 
     private double TasadeInteres;
 
     private String periodoTasa;
 
+    private String capitalizacion;
+
     private int tiempo;
 
     private String periodo;
 
-    private Long interes;
+    private double tasaInteresCapitalizacion;
 
-    private Long monto;
+    private double interes;
+
+    private double monto;
 }

@@ -17,10 +17,8 @@ import upc.edu.pe.carterafinanzas.backend.Resource.Monto_Financiar.CreateMonto_F
 import upc.edu.pe.carterafinanzas.backend.Resource.Monto_Financiar.Monto_FinanciarResource;
 import upc.edu.pe.carterafinanzas.backend.Resource.Monto_Financiar.UpdateMonto_FinanciarResource;
 
-import upc.edu.pe.carterafinanzas.backend.domain.model.entity.Cartera;
-import upc.edu.pe.carterafinanzas.backend.domain.model.entity.Monto_Financiar;
-import upc.edu.pe.carterafinanzas.backend.domain.model.entity.Descuento;
-import upc.edu.pe.carterafinanzas.backend.domain.model.entity.TipoMoneda;
+import upc.edu.pe.carterafinanzas.backend.domain.model.entity.*;
+import upc.edu.pe.carterafinanzas.backend.domain.service.CalculoService;
 import upc.edu.pe.carterafinanzas.backend.domain.service.Monto_FinanciarService;
 import upc.edu.pe.carterafinanzas.backend.domain.service.DescuentoService;
 import upc.edu.pe.carterafinanzas.backend.domain.service.UsuarioService;
@@ -39,6 +37,9 @@ public class Monto_FinanciarController {
 
     @Autowired
     private Monto_FinanciarService mService;
+
+    @Autowired
+    private CalculoService cService;
 
     @Autowired
     private DescuentoService dService;
@@ -142,23 +143,55 @@ public class Monto_FinanciarController {
         return "buscar";
     }
     @RequestMapping("/Tasa_Simple")
-    public String irTasaSimple() {
-
+    public String irTasaSimple(Model model) {
+        model.addAttribute("calculo", new Calculo());
         return "tasasimple";
     }
     @RequestMapping("/Tasa_Nominal")
-    public String irTasaNominal() {
-
+    public String irTasaNominal(Model model) {
+        model.addAttribute("calculo", new Calculo());
         return "tasanominal";
     }
     @RequestMapping("/Tasa_Efectiva")
-    public String irTasaEfectivo() {
-
+    public String irTasaEfectivo(Model model) {
+        model.addAttribute("calculo", new Calculo());
         return "tasaefectiva";
     }
     @RequestMapping("/Tasa_Costo_Efectivo")
-    public String irTasadeCostoEfectivo() {
-
+    public String irTasadeCostoEfectivo(Model model) {
+        model.addAttribute("calculo", new Calculo());
         return "tasadecostoefectivo";
     }
+
+    @RequestMapping("/calcularTasaSimple")
+    public String calcularTasaSimple(@ModelAttribute Calculo objCalculo, BindingResult binRes, Model model) throws org.springframework.expression.ParseException{
+        if(binRes.hasErrors())
+        {
+            model.addAttribute("calculo", objCalculo);
+            return "redirect:/montos/Tasa_Simple";
+        }
+        else {
+            objCalculo.setInteres(cService.TasaSimple(objCalculo));
+            objCalculo.setMonto(cService.TasaSimple2(objCalculo));
+            model.addAttribute("calculo", objCalculo);
+            return "tasasimple";
+        }
+    }
+
+    @RequestMapping("/calcularTasaNominal")
+    public String calcularTasaNominal(@ModelAttribute Calculo objCalculo, BindingResult binRes, Model model) throws org.springframework.expression.ParseException{
+        if(binRes.hasErrors())
+        {
+            model.addAttribute("calculo", objCalculo);
+            return "redirect:/montos/Tasa_Nominal";
+        }
+        else {
+            objCalculo.setTasaInteresCapitalizacion(cService.TasaNominal(objCalculo));
+            objCalculo.setInteres(cService.TasaNominal2(objCalculo));
+            objCalculo.setMonto(cService.TasaNominal3(objCalculo));
+            model.addAttribute("calculo", objCalculo);
+            return "tasanominal";
+        }
+    }
+
 }

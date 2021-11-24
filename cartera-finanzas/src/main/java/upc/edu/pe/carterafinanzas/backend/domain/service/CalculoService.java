@@ -8,10 +8,10 @@ import java.util.Optional;
 
 public interface CalculoService {
 
-    public Long TasaSimple(Calculo c);
-    public Long TasaSimple2(Calculo c);
-    public Long TasaNominal(Calculo c);
-    public Long TasaNominal2(Calculo c);
-    public Long TasaNominal3(Calculo c);
-    public Long TasaEfectiva(Calculo c);
+    public double TasaSimple(Calculo c);
+    public double TasaSimple2(Calculo c);
+    public double TasaNominal(Calculo c);
+    public double TasaNominal2(Calculo c);
+    public double TasaNominal3(Calculo c);
+    public double TasaEfectiva(Calculo c);
 }

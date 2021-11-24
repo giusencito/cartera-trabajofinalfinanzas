@@ -48,7 +48,7 @@
         </div>
     </div>
     <br>
-    <form>
+    <form method="post" th:object="${calculo}" th:action="@{/montos/calcularTasaSimple}">
         <div class="row ml-2">
             <div class="col-7">
                 <h1> TASA SIMPLE</h1>
@@ -59,7 +59,7 @@
                     </div>
                     <div class="col-6">
                         <div class="form-group">
-                            <input type="text" class="form-control" id="usr">
+                            <input type="text" class="form-control"  th:field="*{Capital}">
                         </div>
                     </div>
                 </div>
@@ -70,7 +70,7 @@
                     </div>
                     <div class="col-6">
                         <div class="form-group">
-                            <input type="text" class="form-control" id="usr">
+                            <input type="text" class="form-control" th:field="*{TasadeInteres}">
                         </div>
                     </div>
                 </div>
@@ -81,14 +81,14 @@
                     </div>
                     <div class="col-6">
                         <div class="form-group">
-                            <select class="form-control" id="sel1">
-                                <option>Diaria</option>
-                                <option>Quincenal</option>
-                                <option>Mensual</option>
-                                <option>Bimestral</option>
-                                <option>Trimestral</option>
-                                <option>Semestral</option>
-                                <option>Anual</option>
+                            <select class="form-control"  th:field="*{periodoTasa}">
+                                <option th:value="Diaria">Diaria</option>
+                                <option th:value="Quincenal">Quincenal</option>
+                                <option th:value="Mensual">Mensual</option>
+                                <option th:value="Bimestral">Bimestral</option>
+                                <option th:value="Trimestral">Trimestral</option>
+                                <option th:value="Semestral">Semestral</option>
+                                <option th:value="Anual">Anual</option>
                             </select>
                         </div>
                     </div>
@@ -99,20 +99,20 @@
                         <h3 class="text-center">Tiempo (número):</h3>
                     </div>
                     <div class="col-3">
-                        <input type="number" class="form-control" id="usr">
+                        <input type="number" class="form-control"  th:field="*{tiempo}">
                     </div>
                     <div class="col-3">
                         <h3 class="text-center">Tiempo (periodo):</h3>
                     </div>
                     <div class="col-3">
-                        <select class="form-control" id="sel1">
-                            <option>dias</option>
-                            <option>quincenas</option>
-                            <option>meses</option>
-                            <option>bimestres</option>
-                            <option>trimestres</option>
-                            <option>semestres</option>
-                            <option>años</option>
+                        <select class="form-control" th:field="*{periodo}">
+                            <option th:value="Diaria">dias</option>
+                            <option th:value="Quincenal">quincenas</option>
+                            <option th:value="Mensual">meses</option>
+                            <option th:value="Bimestral">bimestres</option>
+                            <option th:value="Trimestral">trimestres</option>
+                            <option th:value="Semestral">semestres</option>
+                            <option th:value="Anual">años</option>
                         </select>
                     </div>
                 </div>
@@ -123,7 +123,7 @@
                     </div>
                     <div class="col-6">
                         <div class="form-group">
-                            <input type="text" class="form-control" id="usr">
+                            <input type="text" class="form-control" th:field="*{interes}">
                         </div>
                     </div>
                 </div>
@@ -133,7 +133,7 @@
                     </div>
                     <div class="col-6">
                         <div class="form-group">
-                            <input type="text" class="form-control" id="usr">
+                            <input type="text" class="form-control" th:field="*{monto}">
                         </div>
                     </div>
                 </div>
@@ -144,7 +144,7 @@
                     <div class="col-6"></div>
                     <div class="col-6">
                         <button type="submit" class="btn btn-block text-white font-weight-bold margen3 mb-4" style="background-color: rgb(131, 187, 238);">CALCULAR</button>
-                        <a th:href="@{/monto/Tasa_Simple}"class="btn btn-block text-white font-weight-bold" style="background-color: rgb(131, 187, 238);">BORRAR</a>
+                        <a th:href="@{/montos/Tasa_Simple}"class="btn btn-block text-white font-weight-bold" style="background-color: rgb(131, 187, 238);">BORRAR</a>
                     </div>
                 </div>
             </div>
