@@ -68,7 +68,7 @@
                   </nav>
             </div>
             <div class="col-2">
-                <a class="nav-link font-weight-bold py-4" style="color:white; background-color:rgb(57, 136, 181);" href="#">Cerrar sesión</a>
+                <a class="nav-link font-weight-bold py-4" style="color:white; background-color:rgb(57, 136, 181);" th:href="@{/login}">Cerrar sesión</a>
             </div>
         </div>
     </div>
@@ -224,8 +224,8 @@
                 </div>
                 <div style="padding-bottom: 20px;"></div>
                 <div class="m-auto text-center">
-                <button type="button" th:href="@{/descuentos/descuento}" class="btn font-weight-bold"
-                style="color:white; background-color: #83BBEE; border-radius: 10px; padding-right:50px; padding-left:50px">Descuento</button></div>
+                <a type="button" th:href="@{/descuentos/descuento}" class="btn font-weight-bold"
+                style="color:white; background-color: #83BBEE; border-radius: 10px; padding-right:50px; padding-left:50px">Descuento</a></div>
             </td>
         </tr>
     </table>
