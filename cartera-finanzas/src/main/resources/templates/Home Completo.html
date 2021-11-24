@@ -62,29 +62,29 @@
                             <tr>    
                                 <td style="border:0px;">
                                 <div class="m-auto text-center">
-                                <button type="button" class="btn font-weight-bold" 
-                                style="color:white; background-color: #83BBEE; border-radius: 10px; padding-right:88px; padding-left:88px">Tasa Simple</button></div>
+                                <a type="button" th:href="@{/montos//Tasa_Simple}" class="btn font-weight-bold"
+                                style="color:white; background-color: #83BBEE; border-radius: 10px; padding-right:88px; padding-left:88px">Tasa Simple</a></div>
                                 </td>
                             </tr>
                             <tr>    
                                 <td style="border:0px;">
                                 <div class="m-auto text-center">
-                                <button type="button" class="btn font-weight-bold" 
-                                style="color:white; background-color: #83BBEE; border-radius: 10px; padding-right:83px; padding-left:83px">Tasa Nominal</button></div>
+                                <a type="button" th:href="@{/montos/Tasa_Nominal}" class="btn font-weight-bold"
+                                style="color:white; background-color: #83BBEE; border-radius: 10px; padding-right:83px; padding-left:83px">Tasa Nominal</a></div>
                                 </td>
                             </tr>
                             <tr>    
                                 <td style="border:0px;">
                                 <div class="m-auto text-center">
-                                <button type="button" class="btn font-weight-bold" 
-                                style="color:white; background-color: #83BBEE; border-radius: 10px; padding-right:85px; padding-left:85px">Tasa Efectiva</button></div>
+                                <a type="button" th:href="@{/montos/Tasa_Efectiva}" class="btn font-weight-bold"
+                                style="color:white; background-color: #83BBEE; border-radius: 10px; padding-right:85px; padding-left:85px">Tasa Efectiva</a></div>
                                 </td>
                             </tr>
                             <tr>    
                                 <td style="border:0px;">
                                 <div class="m-auto text-center">
-                                <button type="button" class="btn font-weight-bold" 
-                                style="color:white; background-color: #83BBEE; border-radius: 10px; padding-right:50px; padding-left:50px">Tasa de Costo Efectivo</button></div>
+                                <a type="button" th:href="@{/montos/Tasa_Costo_Efectivo}" class="btn font-weight-bold"
+                                style="color:white; background-color: #83BBEE; border-radius: 10px; padding-right:50px; padding-left:50px">Tasa de Costo Efectivo</a></div>
                                 </td>
                             </tr>    
                         </table>
@@ -118,15 +118,15 @@
                             <tr>    
                                 <td style="border:0px;">
                                 <div class="m-auto text-center">
-                                <button type="button" class="btn font-weight-bold" 
-                                style="color:white; background-color: #83BBEE; border-radius: 10px; padding-right:50px; padding-left:50px">Cartera MN</button></div>
+                                <a type="button" th:href="@{/carteras/CarteraMN}" class="btn font-weight-bold"
+                                style="color:white; background-color: #83BBEE; border-radius: 10px; padding-right:50px; padding-left:50px">Cartera MN</a></div>
                                 </td>
                             </tr>
                             <tr>    
                                 <td style="border:0px;">
                                 <div class="m-auto text-center">
-                                <button type="button" class="btn font-weight-bold" 
-                                style="color:white; background-color: #83BBEE; border-radius: 10px; padding-right:50px; padding-left:50px">Cartera ME</button></div>
+                                <a type="button" th:href="@{/carteras/CarteraME}" class="btn font-weight-bold"
+                                style="color:white; background-color: #83BBEE; border-radius: 10px; padding-right:50px; padding-left:50px">Cartera ME</a></div>
                                 </td>
                             </tr>    
                         </table>
@@ -141,8 +141,40 @@
                 </div>
                 <div style="padding-bottom: 20px;"></div>
                 <div class="m-auto text-center">
-                <button type="button" class="btn font-weight-bold" 
-                style="color:white; background-color: #83BBEE; border-radius: 10px; padding-right:50px; padding-left:50px">Movimiento</button></div>
+                <a type="button"  class="btn font-weight-bold"
+                style="color:white; background-color: #83BBEE; border-radius: 10px; padding-right:50px; padding-left:50px" data-toggle="modal" data-target="#myModal3" >Movimiento</a></div>
+                <div class="modal" id="myModal3">
+                    <div class="modal-dialog" style= "margin-top: 250px;">
+                        <div class="modal-content">
+
+                            <div class="modal-header" style="border:0px;">
+                                <div style="padding-right: 95px;"></div>
+                                <div class="m-auto text-center">
+                                    <h4 class="modal-title font-weight-bold">Elegir Movimiento</h4></div>
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            </div>
+
+                            <div class="modal-body">
+                                <table class="table">
+                                    <tr>
+                                        <td style="border:0px;">
+                                            <div class="m-auto text-center">
+                                                <a type="button" th:href="@{/movimiento/Movimiento_MN}" class="btn font-weight-bold"
+                                                   style="color:white; background-color: #83BBEE; border-radius: 10px; padding-right:50px; padding-left:50px">Movimiento MN</a></div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="border:0px;">
+                                            <div class="m-auto text-center">
+                                                <a type="button" th:href="@{/movimiento/Movimiento_ME}" class="btn font-weight-bold"
+                                                   style="color:white; background-color: #83BBEE; border-radius: 10px; padding-right:50px; padding-left:50px">Movimiento ME</a></div>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </td>
         </tr>
         <tr>
@@ -154,7 +186,7 @@
                 </div>
                 <div style="padding-bottom: 20px;"></div>
                 <div class="m-auto text-center">
-                <button type="button" class="btn font-weight-bold" 
+                <button type="button" th:href="@{/descuentos/descuento}" class="btn font-weight-bold"
                 style="color:white; background-color: #83BBEE; border-radius: 10px; padding-right:50px; padding-left:50px">Descuento</button></div>
             </td>
         </tr>

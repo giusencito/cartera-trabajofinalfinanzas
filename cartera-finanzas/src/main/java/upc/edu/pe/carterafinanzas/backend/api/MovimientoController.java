@@ -119,5 +119,13 @@ public class MovimientoController {
         mService.listarId(movimiento.getId());
         return "listMovimientos";
     }
+    @RequestMapping("/Movimiento_MN")
+    public String irMovimientoMN() {
+        return "Movimiento MN";
+    }
+    @RequestMapping("/Movimiento_ME")
+    public String irMovimientoME() {
+        return "Movimiento MN";
+    }
 }
 

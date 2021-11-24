@@ -111,5 +111,13 @@ public class CarteraController {
         cService.listarId(cartera.getId());
         return "listCarteras";
     }
+    @RequestMapping("/CarteraMN")
+    public String CarteraMN() {
+        return "Cartera MN Agregar";
+    }
+    @RequestMapping("/CarteraME")
+    public String CarteraME() {
+        return "Cartera ME Agregar";
+    }
 
 }

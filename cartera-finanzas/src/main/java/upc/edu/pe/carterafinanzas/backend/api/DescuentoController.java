@@ -171,6 +171,9 @@ public class DescuentoController {
         model.put("listaDescuentos", listaMes);
         return "buscar2";
     }
-
+    @RequestMapping("/descuento")
+    public String irPaginaDescuento() {
+        return "Descuento";
+    }
 
 }

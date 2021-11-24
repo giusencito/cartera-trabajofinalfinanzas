@@ -141,4 +141,20 @@ public class Monto_FinanciarController {
         model.put("listaMontos", listaMes);
         return "buscar";
     }
+    @RequestMapping("/Tasa_Simple")
+    public String irTasaSimple() {
+        return "tasasimple";
+    }
+    @RequestMapping("/Tasa_Nominal")
+    public String irTasaNominal() {
+        return "tasanominal";
+    }
+    @RequestMapping("/Tasa_Efectiva")
+    public String irTasaEfectivo() {
+        return "tasaefectivo";
+    }
+    @RequestMapping("/Tasa_Costo_Efectivo")
+    public String irTasadeCostoEfectivo() {
+        return "tasasdecostoefectivo";
+    }
 }
